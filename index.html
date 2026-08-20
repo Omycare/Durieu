@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audit Zendesk — Durieu</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0F0A1E;
+    --bg2: #1A1035;
+    --purple: #8B5CF6;
+    --purple-light: #A78BFA;
+    --purple-dark: #6D28D9;
+    --card: #ffffff;
+    --text: #1e1b4b;
+    --muted: #6b7280;
+    --red: #EF4444;
+    --orange: #F97316;
+    --yellow: #EAB308;
+    --green: #22C55E;
+    --blue: #3B82F6;
+    --teal: #14B8A6;
+  }
+  html, body { height: 100%; overflow: hidden; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--card); }
+
+  /* ─── SLIDES ─────────────────────────────────────────────────── */
+  .deck { width: 100%; height: 100vh; position: relative; }
+  .slide {
+    position: absolute; inset: 0;
+    display: none; flex-direction: column;
+    padding: 40px 48px 80px;
+    overflow-y: auto; overflow-x: hidden;
+    background: linear-gradient(135deg, var(--bg) 0%, #1e0f3a 100%);
+    animation: fadeIn .35s ease;
+  }
+  .slide.active { display: flex; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ─── NAV ──────────────────────────────────────────────────────── */
+  .nav {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(15,10,30,.92); backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(139,92,246,.25);
+    display: flex; align-items: center; justify-content: center;
+    gap: 16px; padding: 10px 24px; height: 56px;
+  }
+  .nav button {
+    background: rgba(139,92,246,.18); border: 1px solid rgba(139,92,246,.35);
+    color: #fff; border-radius: 8px; padding: 6px 14px; cursor: pointer;
+    font-size: 14px; font-weight: 600; transition: all .2s;
+  }
+  .nav button:hover { background: var(--purple); }
+  .dots { display: flex; gap: 6px; }
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(255,255,255,.25); cursor: pointer; transition: all .2s;
+  }
+  .dot.active { background: var(--purple); transform: scale(1.3); }
+  .slide-counter { font-size: 13px; color: rgba(255,255,255,.5); min-width: 48px; text-align: center; }
+
+  /* ─── TYPOGRAPHY ────────────────────────────────────────────────── */
+  .slide-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--purple-light); margin-bottom: 6px;
+  }
+  h1 { font-size: clamp(28px, 4vw, 48px); font-weight: 800; line-height: 1.1; }
+  h2 { font-size: clamp(20px, 2.5vw, 30px); font-weight: 700; margin-bottom: 20px; }
+  h3 { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+  p { font-size: 14px; line-height: 1.6; }
+
+  /* ─── CARDS ──────────────────────────────────────────────────────── */
+  .card {
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+    border-radius: 14px; padding: 20px; backdrop-filter: blur(8px);
+  }
+  .card-white {
+    background: #fff; border-radius: 14px; padding: 20px;
+    color: var(--text); box-shadow: 0 4px 24px rgba(0,0,0,.18);
+  }
+  .grid { display: grid; gap: 16px; }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+  /* ─── BADGES ────────────────────────────────────────────────────── */
+  .badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 700;
+  }
+  .badge-red    { background: rgba(239,68,68,.15);  color: #fca5a5; border: 1px solid rgba(239,68,68,.3); }
+  .badge-orange { background: rgba(249,115,22,.15); color: #fdba74; border: 1px solid rgba(249,115,22,.3); }
+  .badge-yellow { background: rgba(234,179,8,.15);  color: #fde047; border: 1px solid rgba(234,179,8,.3); }
+  .badge-green  { background: rgba(34,197,94,.15);  color: #86efac; border: 1px solid rgba(34,197,94,.3); }
+  .badge-blue   { background: rgba(59,130,246,.15); color: #93c5fd; border: 1px solid rgba(59,130,246,.3); }
+  .badge-purple { background: rgba(139,92,246,.15); color: #c4b5fd; border: 1px solid rgba(139,92,246,.3); }
+  .badge-gray   { background: rgba(107,114,128,.15);color: #d1d5db; border: 1px solid rgba(107,114,128,.3); }
+
+  /* ─── STAT CARDS ────────────────────────────────────────────────── */
+  .stat { text-align: center; padding: 20px 12px; }
+  .stat-num { font-size: clamp(28px,4vw,48px); font-weight: 800; color: var(--purple-light); line-height: 1; }
+  .stat-label { font-size: 12px; color: rgba(255,255,255,.6); margin-top: 6px; text-transform: uppercase; letter-spacing: 1px; }
+
+  /* ─── TABLES ─────────────────────────────────────────────────────── */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: rgba(139,92,246,.2); color: var(--purple-light); font-weight: 700;
+       padding: 10px 12px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+  td { padding: 9px 12px; border-bottom: 1px solid rgba(255,255,255,.06); }
+  tr:hover td { background: rgba(255,255,255,.04); }
+
+  /* ─── ALERTS ─────────────────────────────────────────────────────── */
+  .alert {
+    border-radius: 12px; padding: 16px 20px; margin-bottom: 12px;
+    border-left: 4px solid; display: flex; flex-direction: column; gap: 6px;
+  }
+  .alert-red    { background: rgba(239,68,68,.1);  border-color: var(--red); }
+  .alert-orange { background: rgba(249,115,22,.1); border-color: var(--orange); }
+  .alert-yellow { background: rgba(234,179,8,.1);  border-color: var(--yellow); }
+  .alert-green  { background: rgba(34,197,94,.1);  border-color: var(--green); }
+  .alert-blue   { background: rgba(59,130,246,.1); border-color: var(--blue); }
+  .alert-title  { font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+  .alert-body   { font-size: 13px; color: rgba(255,255,255,.75); line-height: 1.6; }
+
+  /* ─── PROGRESS ──────────────────────────────────────────────────── */
+  .progress-bar { background: rgba(255,255,255,.1); border-radius: 99px; height: 8px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 99px; transition: width .6s ease; }
+
+  /* ─── TIMELINE ──────────────────────────────────────────────────── */
+  .timeline { display: flex; flex-direction: column; gap: 12px; }
+  .timeline-item { display: flex; gap: 16px; align-items: flex-start; }
+  .timeline-dot {
+    width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 13px;
+  }
+  .timeline-content { flex: 1; }
+
+  /* ─── COVER ──────────────────────────────────────────────────────── */
+  .cover-brand {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(139,92,246,.15); border: 1px solid rgba(139,92,246,.35);
+    border-radius: 12px; padding: 8px 18px; margin-bottom: 32px;
+    font-size: 13px; font-weight: 600; color: var(--purple-light);
+  }
+  .cover-title { margin-bottom: 12px; }
+  .cover-title span { color: var(--purple-light); }
+  .cover-sub { font-size: 16px; color: rgba(255,255,255,.6); margin-bottom: 48px; }
+  .cover-stats { display: flex; gap: 24px; flex-wrap: wrap; }
+  .cover-stat {
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+    border-radius: 12px; padding: 16px 24px; text-align: center; min-width: 110px;
+  }
+  .cover-stat .n { font-size: 32px; font-weight: 800; color: var(--purple-light); }
+  .cover-stat .l { font-size: 11px; color: rgba(255,255,255,.5); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+  .divider { width: 60px; height: 4px; background: var(--purple); border-radius: 2px; margin: 16px 0; }
+
+  /* ─── TAG PILLS ─────────────────────────────────────────────────── */
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .tag {
+    background: rgba(139,92,246,.15); border: 1px solid rgba(139,92,246,.3);
+    color: var(--purple-light); padding: 3px 10px; border-radius: 99px; font-size: 12px;
+  }
+  .tag-count { color: rgba(255,255,255,.5); font-size: 11px; }
+
+  /* ─── LIST ──────────────────────────────────────────────────────── */
+  .check-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .check-list li { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; line-height: 1.5; }
+  .check-list li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .cross-list li::before { content: '✗'; color: var(--red); }
+  .warn-list li::before  { content: '!'; color: var(--yellow); }
+
+  /* ─── RESPONSIVE ─────────────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .slide { padding: 24px 20px 72px; }
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    .cover-stats { gap: 12px; }
+    h1 { font-size: 26px; }
+    h2 { font-size: 20px; }
+    th.hide-mobile, td.hide-mobile { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+<!-- ═══════════════════════════════ SLIDE 1 — COVER ═══════════════════════════════ -->
+<div class="slide active" id="slide-1">
+  <div class="cover-brand">
+    <span>⚙</span> Audit Zendesk — Rapport complet
+  </div>
+  <h1 class="cover-title">Compte <span>Durieu</span></h1>
+  <div class="divider"></div>
+  <p class="cover-sub">Diagnostic approfondi · Août 2026 · Durieu SAS · Marques : Durieu &amp; Owatrol · durieu.zendesk.com</p>
+
+  <div class="cover-stats">
+    <div class="cover-stat"><div class="n">2 411</div><div class="l">Tickets</div></div>
+    <div class="cover-stat"><div class="n">22</div><div class="l">Triggers</div></div>
+    <div class="cover-stat"><div class="n">36</div><div class="l">Macros</div></div>
+    <div class="cover-stat"><div class="n">18</div><div class="l">Agents</div></div>
+    <div class="cover-stat"><div class="n">2</div><div class="l">Formulaires</div></div>
+    <div class="cover-stat"><div class="n">68</div><div class="l">Articles HC</div></div>
+  </div>
+
+  <div style="margin-top:auto;padding-top:40px;display:flex;flex-direction:column;gap:8px;">
+    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+      <span class="badge badge-red">🔴 2 urgences critiques</span>
+      <span class="badge badge-orange">🟠 4 points importants</span>
+      <span class="badge badge-yellow">🟡 4 points à optimiser</span>
+    </div>
+    <p style="font-size:12px;color:rgba(255,255,255,.4);margin-top:6px;">Préparé par Stéphanie · OmyCare Consulting</p>
+  </div>
+</div>
+
+<!-- ═════════════════════════ SLIDE 2 — VUE D'ENSEMBLE ════════════════════════════ -->
+<div class="slide" id="slide-2">
+  <div class="slide-label">Slide 02 — Vue d'ensemble</div>
+  <h2>Diagnostic du compte Durieu</h2>
+
+  <div class="grid grid-4" style="margin-bottom:20px;">
+    <div class="card stat">
+      <div class="stat-num">16</div>
+      <div class="stat-label">Triggers actifs</div>
+      <div style="margin-top:8px;font-size:11px;color:rgba(255,255,255,.4);">6 inactifs</div>
+    </div>
+    <div class="card stat">
+      <div class="stat-num">84,7%</div>
+      <div class="stat-label">Satisfaction CSAT</div>
+      <div style="margin-top:8px;font-size:11px;color:rgba(255,255,255,.4);">taux réponse 13,8%</div>
+    </div>
+    <div class="card stat">
+      <div class="stat-num">68</div>
+      <div class="stat-label">Articles Help Center</div>
+      <div style="margin-top:8px;font-size:11px;color:rgba(255,255,255,.4);">10 en brouillon</div>
+    </div>
+    <div class="card stat">
+      <div class="stat-num" style="color:#EF4444;">0</div>
+      <div class="stat-label">Politiques SLA</div>
+      <div style="margin-top:8px;font-size:11px;color:rgba(255,255,255,.4);">aucun SLA configuré</div>
+    </div>
+  </div>
+
+  <div class="grid grid-2" style="flex:1;">
+    <div class="card">
+      <h3 style="color:#86efac;margin-bottom:12px;">✓ Points forts</h3>
+      <ul class="check-list">
+        <li>Macros bien structurées avec nomenclature <strong>::</strong> (TRANSPORT, CONSEIL PRODUIT, etc.)</li>
+        <li>Help Center actif avec 68 articles en français (marque Owatrol)</li>
+        <li>Vues organisées par marketplace (Amazon, Leroy Merlin, Cdiscount…)</li>
+        <li>Intégration Magento 2 connectée (commandes liées)</li>
+        <li>CSAT actif — 13 146 évaluations collectées</li>
+        <li>AI Agent présent + Knowledge Capture installé</li>
+        <li>Statut "En pause" (On Hold) activé et utilisé</li>
+        <li>Automations de réouverture actives (pause → ouvert, attente → ouvert)</li>
+        <li>1 seul ticket suspendu — bon filtrage anti-spam</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="color:#fca5a5;margin-bottom:12px;">✗ Problèmes détectés</h3>
+      <ul class="check-list cross-list">
+        <li><strong>0 politique SLA</strong> — aucun engagement de délai de réponse</li>
+        <li><strong>Horaires commerciaux mal configurés</strong> — 14h-15h seulement (1h/jour)</li>
+        <li>Trigger d'accusé de réception limité à <strong>1 adresse email</strong> seulement</li>
+        <li>Notifications de tickets en attente désactivées (24h, 5 jours)</li>
+        <li>Notifications d'assignation agent <strong>désactivées</strong></li>
+        <li>1 seul groupe — aucune segmentation par équipe</li>
+        <li>5 comptes fonctionnels consomment des licences agent</li>
+        <li>10 articles Help Center en brouillon non publiés</li>
+        <li>Taux de réponse CSAT très faible (13,8% — 11 412 sans réponse)</li>
+        <li>Compte créé sous le nom "Owatrol" — pas de distinction Durieu/Owatrol</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ SLIDE 3 — URGENCES CRITIQUES ══════════════════════════ -->
+<div class="slide" id="slide-3">
+  <div class="slide-label">Slide 03 — Urgences critiques</div>
+  <h2>Durieu · Priorité maximale — À corriger immédiatement</h2>
+
+  <div class="alert alert-red">
+    <div class="alert-title"><span class="badge badge-red">C1</span> Aucune politique SLA configurée</div>
+    <div class="alert-body">
+      La compte ne dispose d'aucun SLA (Service Level Agreement). Il est impossible de mesurer les délais de réponse, de prioriser les tickets urgents, ou de déclencher des alertes en cas de dépassement. C'est la base du pilotage qualité d'un service client.
+      <br><br>
+      <strong>Impact :</strong> Aucun engagement client · Impossible d'identifier les tickets en retard · Pas d'escalade automatique · Données Explore incomplètes.
+      <br><strong>Action :</strong> Créer au minimum 3 niveaux SLA (Urgent, Normal, Faible) avec des délais adaptés au secteur.
+    </div>
+  </div>
+
+  <div class="alert alert-red" style="margin-top:8px;">
+    <div class="alert-title"><span class="badge badge-red">C2</span> Horaires commerciaux : configuration erronée — 1h/jour seulement</div>
+    <div class="alert-body">
+      L'horaire "Owatrol FRANCE" est configuré <strong>Lundi au Vendredi de 14h00 à 15h00 uniquement</strong> — soit 5 heures par semaine au lieu des ~40-50h attendues. Cette erreur fausse tous les calculs de temps de réponse et impactera directement les SLA dès leur création.
+      <br><br>
+      <div style="margin-top:8px;">
+        <table style="font-size:12px;max-width:400px;">
+          <tr><th>Jour</th><th>Actuel (ERREUR)</th><th>Recommandé</th></tr>
+          <tr><td>Lun–Ven</td><td style="color:#fca5a5;">14:00 – 15:00</td><td style="color:#86efac;">08:30 – 18:00</td></tr>
+          <tr><td>Sam–Dim</td><td colspan="2" style="color:rgba(255,255,255,.4);">Fermé</td></tr>
+        </table>
+      </div>
+      <br><strong>Action :</strong> Admin Center → Objets et règles → Horaires commerciaux → Modifier "Owatrol FRANCE".
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ SLIDE 4 — URGENCES IMPORTANTES ═══════════════════════ -->
+<div class="slide" id="slide-4">
+  <div class="slide-label">Slide 04 — Points importants</div>
+  <h2>Corrections prioritaires</h2>
+
+  <div class="alert alert-orange">
+    <div class="alert-title"><span class="badge badge-orange">C3</span> Trigger d'accusé de réception limité à une seule adresse email</div>
+    <div class="alert-body">
+      Le trigger "Réponse automatique Prise en compte de la demande" ne s'active que si le ticket est reçu à <code style="background:rgba(255,255,255,.1);padding:1px 6px;border-radius:4px;">hello@owatrol.com</code>. Les tickets provenant d'Amazon, des marketplaces, de <code style="background:rgba(255,255,255,.1);padding:1px 6px;border-radius:4px;">hello@durieu.com</code> ou d'autres canaux <strong>ne reçoivent aucun accusé de réception</strong>.
+      <br><br>
+      <strong>Action :</strong> Supprimer la condition "destinataire = hello@owatrol.com" ou créer des triggers parallèles pour chaque canal.
+    </div>
+  </div>
+
+  <div class="alert alert-orange">
+    <div class="alert-title"><span class="badge badge-orange">C4</span> Notifications de tickets en attente désactivées</div>
+    <div class="alert-body">
+      Les deux automations de relance sont désactivées :
+      <ul style="margin-top:6px;padding-left:16px;font-size:13px;">
+        <li><strong>OFF</strong> — "Notification de demande en attente depuis 24 heures"</li>
+        <li><strong>OFF</strong> — "Notification de demande en attente depuis 5 jours"</li>
+      </ul>
+      <br>Résultat : les tickets en statut "En attente" peuvent rester sans suivi indéfiniment. Aucun rappel n'est envoyé au client s'il ne répond pas.
+      <br><strong>Action :</strong> Réactiver les deux automations et adapter les délais (ex : 72h + 7 jours).
+    </div>
+  </div>
+
+  <div class="alert alert-orange">
+    <div class="alert-title"><span class="badge badge-orange">C5</span> Agents non notifiés lors des assignations</div>
+    <div class="alert-body">
+      Trois triggers de notification internes sont désactivés :
+      <ul style="margin-top:6px;padding-left:16px;font-size:13px;">
+        <li><strong>OFF</strong> — "Notifier l'assigné de l'affectation"</li>
+        <li><strong>OFF</strong> — "Notifier le groupe de l'affectation"</li>
+        <li><strong>OFF</strong> — "Notifier l'assigné de la mise à jour des commentaires"</li>
+      </ul>
+      <br>Les agents ne sont pas alertés quand un ticket leur est assigné ou mis à jour — risque de tickets oubliés.
+      <br><strong>Action :</strong> Réactiver ou recréer ces triggers selon les préférences de l'équipe.
+    </div>
+  </div>
+
+  <div class="alert alert-yellow">
+    <div class="alert-title"><span class="badge badge-yellow">C6</span> 10 articles Help Center en brouillon non publiés</div>
+    <div class="alert-body">
+      10 articles sont en cours de rédaction mais non publiés, empêchant l'AI Agent de les utiliser pour résoudre des tickets. Parmi eux : informations retour colis, produits biosourcés, recyclabilité emballages.
+      <br><strong>Action :</strong> Réviser et publier les brouillons ou les supprimer s'ils sont obsolètes.
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ SLIDE 5 — TRIGGERS & AUTOMATIONS ══════════════════════ -->
+<div class="slide" id="slide-5">
+  <div class="slide-label">Slide 05 — Triggers & Automations</div>
+  <h2>Inventaire et analyse</h2>
+
+  <div class="grid grid-2" style="gap:16px;flex:1;">
+    <div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <h3>Triggers <span class="badge badge-purple" style="font-size:11px;margin-left:6px;">22 total</span></h3>
+        <div style="display:flex;gap:6px;">
+          <span class="badge badge-green" style="font-size:11px;">16 actifs</span>
+          <span class="badge badge-gray" style="font-size:11px;">6 inactifs</span>
+        </div>
+      </div>
+      <div style="overflow-y:auto;max-height:calc(100vh - 260px);">
+        <table>
+          <thead><tr><th>Statut</th><th>Trigger</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge badge-green" style="font-size:10px;">ON</span></td><td>Réponse automatique Prise en compte ⚠</td></tr>
+            <tr><td><span class="badge badge-green" style="font-size:10px;">ON</span></td><td>Notifier demandeur du nouveau ticket proactif</td></tr>
+            <tr><td><span class="badge badge-green" style="font-size:10px;">ON</span></td><td>Notifier demandeur + CC de la mise à jour</td></tr>
+            <tr><td><span class="badge badge-green" style="font-size:10px;">ON</span></td><td>Notifier tous les agents de la demande reçue</td></tr>
+            <tr><td><span class="badge badge-green" style="font-size:10px;">ON</span></td><td>Demandez CSAT (Messagerie)</td></tr>
+            <tr><td><span class="badge badge-green" style="font-size:10px;">ON</span></td><td>Demandez CSAT (Messagerie sociale)</td></tr>
+            <tr><td><span class="badge badge-green" style="font-size:10px;">ON</span></td><td>Fermeture annuelle de la société</td></tr>
+            <tr><td><span class="badge badge-green" style="font-size:10px;">ON</span></td><td>Notification Fabienne mails Amazon Europe</td></tr>
+            <tr><td><span class="badge badge-green" style="font-size:10px;">ON</span></td><td>Qualification client professionnel</td></tr>
+            <tr><td><span class="badge badge-green" style="font-size:10px;">ON</span></td><td>Qualification client particulier</td></tr>
+            <tr><td><span class="badge badge-green" style="font-size:10px;">ON</span></td><td>Résolution automatique tickets commande</td></tr>
+            <tr><td><span class="badge badge-green" style="font-size:10px;">ON</span></td><td>Marqueur Solution déco</td></tr>
+            <tr><td><span class="badge badge-green" style="font-size:10px;">ON</span></td><td>Marqueur Owatrol</td></tr>
+            <tr><td><span class="badge badge-green" style="font-size:10px;">ON</span></td><td>Ticket logistique auto "ouvert"</td></tr>
+            <tr><td><span class="badge badge-green" style="font-size:10px;">ON</span></td><td>Assignation marketplaces</td></tr>
+            <tr><td><span class="badge badge-orange" style="font-size:10px;">ON</span></td><td>Réouverture <span style="font-size:11px;color:rgba(255,255,255,.4)">(à vérifier)</span></td></tr>
+            <tr style="opacity:.5;"><td><span class="badge badge-gray" style="font-size:10px;">OFF</span></td><td>Notifier demandeur à la réception ⚠</td></tr>
+            <tr style="opacity:.5;"><td><span class="badge badge-gray" style="font-size:10px;">OFF</span></td><td>Notifier l'assigné de l'affectation ⚠</td></tr>
+            <tr style="opacity:.5;"><td><span class="badge badge-gray" style="font-size:10px;">OFF</span></td><td>Notifier le groupe de l'affectation ⚠</td></tr>
+            <tr style="opacity:.5;"><td><span class="badge badge-gray" style="font-size:10px;">OFF</span></td><td>Notifier l'assigné de la mise à jour ⚠</td></tr>
+            <tr style="opacity:.5;"><td><span class="badge badge-gray" style="font-size:10px;">OFF</span></td><td>Notifier l'assigné à la réouverture</td></tr>
+            <tr style="opacity:.5;"><td><span class="badge badge-gray" style="font-size:10px;">OFF</span></td><td>Affecter au 1er agent répondant par email</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <h3>Automations <span class="badge badge-purple" style="font-size:11px;margin-left:6px;">6 total</span></h3>
+        <div style="display:flex;gap:6px;">
+          <span class="badge badge-green" style="font-size:11px;">4 actives</span>
+          <span class="badge badge-gray" style="font-size:11px;">2 inactives</span>
+        </div>
+      </div>
+      <table>
+        <thead><tr><th>Statut</th><th>Automation</th></tr></thead>
+        <tbody>
+          <tr><td><span class="badge badge-green" style="font-size:10px;">ON</span></td><td>Clore ticket 4 jours après Résolu</td></tr>
+          <tr><td><span class="badge badge-green" style="font-size:10px;">ON</span></td><td>Demander CSAT (automatisme système)</td></tr>
+          <tr><td><span class="badge badge-green" style="font-size:10px;">ON</span></td><td>Ticket en pause → ouvert</td></tr>
+          <tr><td><span class="badge badge-green" style="font-size:10px;">ON</span></td><td>Ticket en attente → ouvert</td></tr>
+          <tr style="opacity:.5;"><td><span class="badge badge-red" style="font-size:10px;">OFF</span></td><td>Notification en attente depuis 24h ⚠</td></tr>
+          <tr style="opacity:.5;"><td><span class="badge badge-red" style="font-size:10px;">OFF</span></td><td>Notification en attente depuis 5 jours ⚠</td></tr>
+        </tbody>
+      </table>
+
+      <div class="alert alert-yellow" style="margin-top:16px;">
+        <div class="alert-title" style="font-size:13px;">⚠ Points d'attention</div>
+        <div class="alert-body">
+          <ul style="padding-left:14px;display:flex;flex-direction:column;gap:4px;">
+            <li>La clôture automatique est fixée à <strong>4 jours</strong> après résolution — délai très court, à vérifier si approprié</li>
+            <li>Le trigger "Réouverture" est ON mais sans conditions visibles documentées</li>
+            <li>Erreur typographique : "Fermeture annuelle <strong>de le</strong> société" → "de <strong>la</strong> société"</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════ SLIDE 6 — SLA & HORAIRES ═════════════════════════════ -->
+<div class="slide" id="slide-6">
+  <div class="slide-label">Slide 06 — SLA & Horaires commerciaux</div>
+  <h2>Aucun SLA + Horaires mal configurés</h2>
+
+  <div class="grid grid-2" style="gap:16px;margin-bottom:20px;">
+    <div class="alert alert-red">
+      <div class="alert-title">Politiques SLA</div>
+      <div class="alert-body">
+        <div style="font-size:48px;font-weight:900;color:#EF4444;line-height:1;margin:8px 0;">0</div>
+        Aucune politique SLA définie. Le compte ne peut pas mesurer ni garantir ses délais de traitement.
+      </div>
+    </div>
+    <div class="alert alert-red">
+      <div class="alert-title">Horaires "Owatrol FRANCE" — Configuration actuelle</div>
+      <div class="alert-body">
+        <table style="margin-top:6px;">
+          <tr><th>Jour</th><th>Plage horaire</th><th>Durée</th></tr>
+          <tr><td>Lundi</td><td style="color:#fca5a5;">14:00 – 15:00</td><td style="color:#fca5a5;">1h</td></tr>
+          <tr><td>Mardi</td><td style="color:#fca5a5;">14:00 – 15:00</td><td style="color:#fca5a5;">1h</td></tr>
+          <tr><td>Mercredi</td><td style="color:#fca5a5;">14:00 – 15:00</td><td style="color:#fca5a5;">1h</td></tr>
+          <tr><td>Jeudi</td><td style="color:#fca5a5;">14:00 – 15:00</td><td style="color:#fca5a5;">1h</td></tr>
+          <tr><td>Vendredi</td><td style="color:#fca5a5;">14:00 – 15:00</td><td style="color:#fca5a5;">1h</td></tr>
+          <tr><td colspan="2"><strong>Total hebdomadaire</strong></td><td style="color:#EF4444;font-weight:700;">5h / sem.</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin-bottom:12px;">Matrice SLA recommandée</h3>
+  <table>
+    <thead>
+      <tr><th>Priorité</th><th>Déclencheur</th><th>Première réponse</th><th>Résolution</th><th>Horaire</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="badge badge-red">Urgent</span></td>
+        <td>Tag urgent / pro / marketplace</td>
+        <td style="color:#86efac;font-weight:700;">2h</td>
+        <td style="color:#86efac;">8h</td>
+        <td>Owatrol FRANCE</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-orange">Normal</span></td>
+        <td>Défaut (tous tickets)</td>
+        <td style="color:#86efac;font-weight:700;">4h</td>
+        <td style="color:#86efac;">24h</td>
+        <td>Owatrol FRANCE</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-yellow">Faible</span></td>
+        <td>Info / conseil / prospection</td>
+        <td style="color:#86efac;font-weight:700;">8h</td>
+        <td style="color:#86efac;">72h</td>
+        <td>Owatrol FRANCE</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="alert alert-blue" style="margin-top:16px;">
+    <div class="alert-title">📋 Étapes de correction (priorité absolue)</div>
+    <div class="alert-body">
+      <ol style="padding-left:16px;display:flex;flex-direction:column;gap:4px;">
+        <li>Admin Center → Objets et règles → Horaires commerciaux → Modifier les plages horaires</li>
+        <li>Admin Center → Objets et règles → SLA → Ajouter une politique</li>
+        <li>Lier les SLA à l'horaire "Owatrol FRANCE" corrigé</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ SLIDE 7 — VUES & ORGANISATION ════════════════════════ -->
+<div class="slide" id="slide-7">
+  <div class="slide-label">Slide 07 — Vues & Organisation</div>
+  <h2>31 vues — Structure globalement cohérente</h2>
+
+  <div class="grid grid-2" style="gap:16px;flex:1;">
+    <div>
+      <h3 style="margin-bottom:12px;">Vues actives (20) <span class="badge badge-green" style="font-size:10px;margin-left:4px;">Bon niveau</span></h3>
+      <table>
+        <thead><tr><th>Catégorie</th><th>Vues</th></tr></thead>
+        <tbody>
+          <tr><td>📊 Statuts (Nouveaux, Ouverts, En attente, Résolus, En pause)</td><td><span class="badge badge-green" style="font-size:10px;">5</span></td></tr>
+          <tr><td>🛒 Marketplaces (Amazon, Leroy Merlin, Cdiscount, ManoMano, ADEO, Castorama, Autres)</td><td><span class="badge badge-blue" style="font-size:10px;">7</span></td></tr>
+          <tr><td>🚚 Logistique (Tickets Logs + Retour client)</td><td><span class="badge badge-purple" style="font-size:10px;">2</span></td></tr>
+          <tr><td>🎨 Marques (Solution-déco, Owatrol)</td><td><span class="badge badge-purple" style="font-size:10px;">2</span></td></tr>
+          <tr><td>👤 Agents spécifiques (Lydia, Pro)</td><td><span class="badge badge-yellow" style="font-size:10px;">2</span></td></tr>
+          <tr><td>🔄 Récemment mis à jour</td><td><span class="badge badge-gray" style="font-size:10px;">1</span></td></tr>
+          <tr><td>✅ Approbations</td><td><span class="badge badge-gray" style="font-size:10px;">1</span></td></tr>
+        </tbody>
+      </table>
+
+      <div class="alert alert-green" style="margin-top:14px;">
+        <div class="alert-title" style="font-size:13px;">✓ Organisation marketplace exemplaire</div>
+        <div class="alert-body">La segmentation par plateforme (Amazon, Leroy Merlin, ADEO…) est un vrai point fort. Elle facilite la priorisation et le suivi par canal.</div>
+      </div>
+    </div>
+
+    <div>
+      <h3 style="margin-bottom:12px;">Points d'amélioration</h3>
+      <div class="alert alert-yellow">
+        <div class="alert-title" style="font-size:13px;">1 seul groupe — Aucune segmentation équipe</div>
+        <div class="alert-body">
+          Tous les agents sont dans le groupe <strong>"Assistance"</strong>. Pourtant les macros montrent une séparation claire entre les domaines :
+          <div class="tags" style="margin-top:8px;">
+            <span class="tag">TRANSPORT</span>
+            <span class="tag">CONSEIL PRODUIT</span>
+            <span class="tag">LOGISTIQUE</span>
+            <span class="tag">ANNULATION</span>
+            <span class="tag">RETOUR</span>
+            <span class="tag">FACTURE</span>
+          </div>
+          <br>Recommandation : créer des groupes par expertise pour faciliter le routage.
+        </div>
+      </div>
+
+      <div class="alert alert-orange" style="margin-top:10px;">
+        <div class="alert-title" style="font-size:13px;">Vues Social Messaging désactivées</div>
+        <div class="alert-body">
+          Les vues "Social messaging - Assigned to you" et "Unassigned" sont OFF. L'app Social Messaging est installée — si des canaux sociaux sont actifs, ces vues devraient être activées.
+        </div>
+      </div>
+
+      <div class="alert alert-yellow" style="margin-top:10px;">
+        <div class="alert-title" style="font-size:13px;">11 vues inactives</div>
+        <div class="alert-body">
+          Vues désactivées dont certaines utiles : "Tickets non affectés", "Tickets mis à jour récemment", "CSAT 7 jours", "Tâches en retard". À réévaluer selon les besoins de l'équipe.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════ SLIDE 8 — FORMULAIRES & AGENTS ══════════════════════ -->
+<div class="slide" id="slide-8">
+  <div class="slide-label">Slide 08 — Formulaires, champs & agents</div>
+  <h2>2 formulaires · 49 champs · 18 agents</h2>
+
+  <div class="grid grid-2" style="gap:16px;flex:1;">
+    <div>
+      <h3 style="margin-bottom:12px;">Formulaires & Champs</h3>
+      <table style="margin-bottom:14px;">
+        <thead><tr><th>Formulaire</th><th>Usage</th></tr></thead>
+        <tbody>
+          <tr><td>Formulaire agents</td><td><span class="badge badge-green" style="font-size:10px;">Actif</span></td></tr>
+          <tr><td>Formulaire utilisateurs finaux</td><td><span class="badge badge-green" style="font-size:10px;">Actif</span></td></tr>
+        </tbody>
+      </table>
+      <h3 style="margin-bottom:10px;">Champs personnalisés actifs (sélection)</h3>
+      <div class="tags">
+        <span class="tag">Type de demande</span>
+        <span class="tag">Motif de contact</span>
+        <span class="tag">Produit concerné</span>
+        <span class="tag">N° de commande</span>
+        <span class="tag">Motif retour</span>
+        <span class="tag">Matériau à traiter</span>
+        <span class="tag">Surface m²</span>
+        <span class="tag">Code postal</span>
+        <span class="tag">Nom du produit</span>
+        <span class="tag">Pays</span>
+        <span class="tag">Société</span>
+        <span class="tag">Tél.</span>
+        <span class="tag">Type de client</span>
+        <span class="tag">Niveau de résolution</span>
+        <span class="tag">Résumé IA</span>
+      </div>
+      <div class="alert alert-yellow" style="margin-top:14px;">
+        <div class="alert-title" style="font-size:13px;">Champs désactivés détectés</div>
+        <div class="alert-body">"Client particulier" et "Client professionnel" (checkbox) sont désactivés — remplacés par le tagger "Type de client". Les anciens peuvent être supprimés.</div>
+      </div>
+      <div class="alert alert-blue" style="margin-top:10px;">
+        <div class="alert-title" style="font-size:13px;">Champs IA détectés</div>
+        <div class="alert-body">Présence de champs de résumé IA, sentiment, langue, confiance — l'IA Zendesk est partiellement configurée.</div>
+      </div>
+    </div>
+
+    <div>
+      <h3 style="margin-bottom:12px;">Agents (18 total)</h3>
+      <table style="margin-bottom:14px;">
+        <thead><tr><th>Agent</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td>Diane Infantellino</td><td><span class="badge badge-green" style="font-size:10px;">Humain</span></td></tr>
+          <tr><td>Fabienne (f.trouve)</td><td><span class="badge badge-green" style="font-size:10px;">Humain</span></td></tr>
+          <tr><td>Adina Ciobanasu</td><td><span class="badge badge-green" style="font-size:10px;">Humain</span></td></tr>
+          <tr><td>Sandrine Duribreux</td><td><span class="badge badge-green" style="font-size:10px;">Humain</span></td></tr>
+          <tr><td>Virginie (v.foufelle)</td><td><span class="badge badge-green" style="font-size:10px;">Humain</span></td></tr>
+          <tr><td>Jérôme Dauvé</td><td><span class="badge badge-green" style="font-size:10px;">Humain</span></td></tr>
+          <tr><td>David Veyrat</td><td><span class="badge badge-green" style="font-size:10px;">Humain</span></td></tr>
+          <tr><td>Mickaël Flamme</td><td><span class="badge badge-green" style="font-size:10px;">Humain</span></td></tr>
+          <tr><td>Carole Latychko</td><td><span class="badge badge-green" style="font-size:10px;">Humain</span></td></tr>
+          <tr><td>Christelle Dasilva (log.fr)</td><td><span class="badge badge-yellow" style="font-size:10px;">Prestataire</span></td></tr>
+          <tr><td>Stéphanie Laigle</td><td><span class="badge badge-green" style="font-size:10px;">Humain</span></td></tr>
+          <tr><td>Adrien Baudoux</td><td><span class="badge badge-green" style="font-size:10px;">Humain</span></td></tr>
+          <tr><td>AI Agent</td><td><span class="badge badge-purple" style="font-size:10px;">IA</span></td></tr>
+          <tr><td>info@owatrol.com</td><td><span class="badge badge-orange" style="font-size:10px;">Compte fonctionnel</span></td></tr>
+          <tr><td>sav.logistique@</td><td><span class="badge badge-orange" style="font-size:10px;">Compte fonctionnel</span></td></tr>
+          <tr><td>comptabiliteclient@</td><td><span class="badge badge-orange" style="font-size:10px;">Compte fonctionnel</span></td></tr>
+          <tr><td>adv@durieu.com</td><td><span class="badge badge-orange" style="font-size:10px;">Compte fonctionnel</span></td></tr>
+          <tr><td>serviceclients@</td><td><span class="badge badge-orange" style="font-size:10px;">Compte fonctionnel</span></td></tr>
+        </tbody>
+      </table>
+      <div class="alert alert-orange">
+        <div class="alert-title" style="font-size:13px;">5 licences agent consommées par des boîtes mail</div>
+        <div class="alert-body">Ces comptes fonctionnels occupent des licences payantes. Ils pourraient être convertis en "agents light" (lecture seule) ou en adresses alias selon leur usage réel.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ SLIDE 9 — HELP CENTER & IA ═══════════════════════════ -->
+<div class="slide" id="slide-9">
+  <div class="slide-label">Slide 09 — Help Center & Intelligence Artificielle</div>
+  <h2>68 articles · AI Agent actif · Base solide à optimiser</h2>
+
+  <div class="grid grid-2" style="gap:16px;flex:1;">
+    <div>
+      <h3 style="margin-bottom:12px;">Help Center — État des articles</h3>
+      <div style="display:flex;gap:12px;margin-bottom:14px;flex-wrap:wrap;">
+        <div class="card" style="flex:1;min-width:100px;text-align:center;padding:14px 8px;">
+          <div style="font-size:28px;font-weight:800;color:#86efac;">58</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;">Publiés</div>
+        </div>
+        <div class="card" style="flex:1;min-width:100px;text-align:center;padding:14px 8px;">
+          <div style="font-size:28px;font-weight:800;color:#fde047;">10</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;">Brouillons</div>
+        </div>
+      </div>
+      <h3 style="margin-bottom:8px;">Thématiques couvertes</h3>
+      <div class="tags" style="margin-bottom:14px;">
+        <span class="tag">Commandes & livraison</span>
+        <span class="tag">Retours & remboursements</span>
+        <span class="tag">Conseil produit</span>
+        <span class="tag">Saturateurs bois</span>
+        <span class="tag">RUSTOL-OWATROL®</span>
+        <span class="tag">Compte client</span>
+        <span class="tag">Paiement</span>
+        <span class="tag">FAQ produits</span>
+      </div>
+      <h3 style="margin-bottom:8px;">Articles en brouillon à publier</h3>
+      <ul class="check-list warn-list" style="font-size:12px;">
+        <li>Que veulent dire les pictogrammes sur l'emballage ?</li>
+        <li>Les emballages sont-ils recyclables ?</li>
+        <li>Qu'est-ce que la biodégradabilité ?</li>
+        <li>Vos produits sont-ils testés sur les animaux ?</li>
+        <li>Retour de colis — est-il gratuit ?</li>
+        <li>Sous quel délai le remboursement est-il effectué ?</li>
+        <li>Que faire si le point retrait est trop loin ?</li>
+        <li>Est-il possible de retourner pour un échange de teinte ?</li>
+      </ul>
+    </div>
+
+    <div>
+      <h3 style="margin-bottom:12px;">Intelligence Artificielle</h3>
+      <div class="alert alert-purple" style="background:rgba(139,92,246,.1);border-color:var(--purple);margin-bottom:10px;">
+        <div class="alert-title" style="font-size:13px;">AI Agent présent</div>
+        <div class="alert-body">
+          Un compte "AI Agent" est actif dans l'instance. Les champs IA (résumé, sentiment, langue, confiance) sont configurés.
+          <br><br>
+          <strong>Apps IA installées :</strong>
+          <ul style="padding-left:14px;margin-top:4px;font-size:12px;">
+            <li>Knowledge Capture — capture d'articles depuis tickets</li>
+            <li>Social Messaging for Zendesk</li>
+            <li>Magento 2 by Zenplates</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="alert alert-yellow">
+        <div class="alert-title" style="font-size:13px;">Optimisations recommandées</div>
+        <div class="alert-body">
+          <ul style="padding-left:14px;display:flex;flex-direction:column;gap:5px;font-size:13px;">
+            <li>Publier les 10 brouillons pour enrichir la base de l'AI Agent</li>
+            <li>Ajouter des <strong>labels</strong> aux articles pour améliorer la pertinence de recherche</li>
+            <li>Configurer les <strong>suggestions d'articles</strong> dans le panneau agent</li>
+            <li>Activer les <strong>suggestions de macros</strong> via l'intelligence Zendesk</li>
+            <li>Vérifier les règles de routage de l'AI Agent vs agents humains</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="alert alert-blue" style="margin-top:10px;">
+        <div class="alert-title" style="font-size:13px;">Top tags tickets (indicateurs clés)</div>
+        <div class="alert-body">
+          <div style="display:flex;flex-direction:column;gap:4px;margin-top:4px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:12px;">owatrol</span>
+              <div style="display:flex;align-items:center;gap:8px;flex:1;margin-left:12px;">
+                <div class="progress-bar" style="flex:1;"><div class="progress-fill" style="width:100%;background:var(--purple);"></div></div>
+                <span style="font-size:11px;color:rgba(255,255,255,.5);min-width:30px;text-align:right;">890</span>
+              </div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:12px;">client_particulier</span>
+              <div style="display:flex;align-items:center;gap:8px;flex:1;margin-left:12px;">
+                <div class="progress-bar" style="flex:1;"><div class="progress-fill" style="width:28%;background:var(--blue);"></div></div>
+                <span style="font-size:11px;color:rgba(255,255,255,.5);min-width:30px;text-align:right;">253</span>
+              </div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:12px;">leroy_merlin</span>
+              <div style="display:flex;align-items:center;gap:8px;flex:1;margin-left:12px;">
+                <div class="progress-bar" style="flex:1;"><div class="progress-fill" style="width:18%;background:var(--green);"></div></div>
+                <span style="font-size:11px;color:rgba(255,255,255,.5);min-width:30px;text-align:right;">160</span>
+              </div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:12px;">choisir_un_produit</span>
+              <div style="display:flex;align-items:center;gap:8px;flex:1;margin-left:12px;">
+                <div class="progress-bar" style="flex:1;"><div class="progress-fill" style="width:11%;background:var(--orange);"></div></div>
+                <span style="font-size:11px;color:rgba(255,255,255,.5);min-width:30px;text-align:right;">99</span>
+              </div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:12px;">prospection</span>
+              <div style="display:flex;align-items:center;gap:8px;flex:1;margin-left:12px;">
+                <div class="progress-bar" style="flex:1;"><div class="progress-fill" style="width:9%;background:var(--yellow);"></div></div>
+                <span style="font-size:11px;color:rgba(255,255,255,.5);min-width:30px;text-align:right;">84</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════ SLIDE 10 — PLAN D'ACTION ═════════════════════════════ -->
+<div class="slide" id="slide-10">
+  <div class="slide-label">Slide 10 — Plan d'action</div>
+  <h2>Durieu — Feuille de route priorisée</h2>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:rgba(239,68,68,.25);border:2px solid var(--red);color:#fca5a5;">S1</div>
+      <div class="timeline-content">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+          <strong style="font-size:14px;">Semaine 1 — Corrections critiques</strong>
+          <span class="badge badge-red" style="font-size:10px;">Urgent · ~2h</span>
+        </div>
+        <ul style="display:flex;flex-direction:column;gap:4px;padding-left:16px;font-size:13px;color:rgba(255,255,255,.8);">
+          <li>Corriger l'horaire "Owatrol FRANCE" → Lun-Ven 08:30–18:00</li>
+          <li>Créer 3 politiques SLA (Urgent / Normal / Faible)</li>
+          <li>Corriger le trigger d'accusé de réception (supprimer condition email unique)</li>
+          <li>Réactiver les triggers de notification d'assignation agent/groupe</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:rgba(249,115,22,.25);border:2px solid var(--orange);color:#fdba74;">S2</div>
+      <div class="timeline-content">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+          <strong style="font-size:14px;">Semaine 2 — Processus & Qualité</strong>
+          <span class="badge badge-orange" style="font-size:10px;">Important · ~3h</span>
+        </div>
+        <ul style="display:flex;flex-direction:column;gap:4px;padding-left:16px;font-size:13px;color:rgba(255,255,255,.8);">
+          <li>Réactiver + adapter les automations de relance (en attente 72h, 7 jours)</li>
+          <li>Publier les 10 articles Help Center en brouillon</li>
+          <li>Vérifier et documenter le scope de l'AI Agent</li>
+          <li>Identifier les 5 comptes fonctionnels et proposer migration en Light Agent</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:rgba(234,179,8,.25);border:2px solid var(--yellow);color:#fde047;">M1</div>
+      <div class="timeline-content">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+          <strong style="font-size:14px;">Mois 1 — Organisation & Structure</strong>
+          <span class="badge badge-yellow" style="font-size:10px;">Amélioration · ~1 jour</span>
+        </div>
+        <ul style="display:flex;flex-direction:column;gap:4px;padding-left:16px;font-size:13px;color:rgba(255,255,255,.8);">
+          <li>Créer des groupes Zendesk par domaine (Conseil, Transport, SAV, Logistique)</li>
+          <li>Configurer le routage par groupe selon le type de demande</li>
+          <li>Activer les vues Social Messaging si canaux sociaux utilisés</li>
+          <li>Ajouter des labels aux articles Help Center</li>
+          <li>Renommer "Fermeture annuelle de le société" → "de la société"</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:rgba(34,197,94,.25);border:2px solid var(--green);color:#86efac;">T1</div>
+      <div class="timeline-content">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+          <strong style="font-size:14px;">Trimestre 1 — Automatisation avancée</strong>
+          <span class="badge badge-green" style="font-size:10px;">Optimisation · ~2 jours</span>
+        </div>
+        <ul style="display:flex;flex-direction:column;gap:4px;padding-left:16px;font-size:13px;color:rgba(255,255,255,.8);">
+          <li>Configurer le skill-based routing pour l'AI Agent</li>
+          <li>Mettre en place le flux de récupération CSAT (taux réponse actuel : 13,8%)</li>
+          <li>Créer des flux automatisés marketplace (suivi commande, retour, litige)</li>
+          <li>Explorer Zendesk Explore pour tableaux de bord temps de réponse par canal</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ SLIDE 11 — OPPORTUNITÉS ══════════════════════════════ -->
+<div class="slide" id="slide-11">
+  <div class="slide-label">Slide 11 — Opportunités & Flux recommandés</div>
+  <h2>3 automations à fort impact</h2>
+
+  <div class="grid grid-3" style="gap:16px;margin-bottom:20px;">
+    <div class="card">
+      <div style="font-size:24px;margin-bottom:8px;">📦</div>
+      <h3 style="font-size:14px;margin-bottom:8px;color:var(--purple-light);">Flux 1 — Suivi commande automatisé</h3>
+      <p style="font-size:13px;line-height:1.6;">
+        Les tags <code style="background:rgba(255,255,255,.1);padding:1px 4px;border-radius:3px;">leroy_merlin</code> (160), <code style="background:rgba(255,255,255,.1);padding:1px 4px;border-radius:3px;">demande-annulation-amazon</code> (60) représentent des volumes significatifs.<br><br>
+        <strong>Automatiser :</strong> envoi de la procédure de suivi + lien transporteur dès qu'un tag commande est détecté.
+      </p>
+    </div>
+
+    <div class="card">
+      <div style="font-size:24px;margin-bottom:8px;">↩</div>
+      <h3 style="font-size:14px;margin-bottom:8px;color:var(--purple-light);">Flux 2 — SAV Retours simplifié</h3>
+      <p style="font-size:13px;line-height:1.6;">
+        Tag <code style="background:rgba(255,255,255,.1);padding:1px 4px;border-radius:3px;">retour_client</code> (58) + <code style="background:rgba(255,255,255,.1);padding:1px 4px;border-radius:3px;">retour-colis</code> (52) + <code style="background:rgba(255,255,255,.1);padding:1px 4px;border-radius:3px;">remboursement</code> (58).<br><br>
+        <strong>Automatiser :</strong> envoi immédiat de la macro RETOUR::Procédure + étiquette retour selon le motif détecté via les champs.
+      </p>
+    </div>
+
+    <div class="card">
+      <div style="font-size:24px;margin-bottom:8px;">⭐</div>
+      <h3 style="font-size:14px;margin-bottom:8px;color:var(--purple-light);">Flux 3 — Récupération CSAT</h3>
+      <p style="font-size:13px;line-height:1.6;">
+        Seulement <strong>13,8%</strong> de taux de réponse aux enquêtes de satisfaction (11 412 sans réponse).<br><br>
+        <strong>Automatiser :</strong> relance 48h après l'envoi CSAT si pas de réponse. Objectif : atteindre 25% de taux de réponse.
+      </p>
+    </div>
+  </div>
+
+  <h3 style="margin-bottom:12px;">Fonctionnalités Zendesk à exploiter</h3>
+  <div class="grid grid-2" style="gap:12px;">
+    <div class="alert alert-blue">
+      <div class="alert-title" style="font-size:13px;">Groupes par expertise</div>
+      <div class="alert-body">Créer des groupes Conseil Produit, Logistique, SAV, Pro pour router automatiquement selon le "Motif de contact" déjà configuré comme champ.</div>
+    </div>
+    <div class="alert alert-purple" style="background:rgba(139,92,246,.1);border-color:var(--purple);">
+      <div class="alert-title" style="font-size:13px;">Triage intelligent (IA)</div>
+      <div class="alert-body">Les champs Sujet, Sentiment, Langue sont présents. Activer le triage IA pour qualifier automatiquement les tickets entrants sans intervention manuelle.</div>
+    </div>
+    <div class="alert alert-green">
+      <div class="alert-title" style="font-size:13px;">Suggestions d'articles aux agents</div>
+      <div class="alert-body">Knowledge Capture est installé. Configurer les suggestions d'articles dans le panneau contextuel pour réduire le temps de réponse sur les conseils produit.</div>
+    </div>
+    <div class="alert alert-yellow">
+      <div class="alert-title" style="font-size:13px;">Champs conditionnels dans les formulaires</div>
+      <div class="alert-body">Configurer des conditions sur le formulaire utilisateurs finaux pour n'afficher que les champs pertinents selon le motif (ex : N° commande uniquement si transport).</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════ SLIDE 12 — RÉSUMÉ & CONTACT ══════════════════════════ -->
+<div class="slide" id="slide-12">
+  <div class="slide-label">Slide 12 — Résumé exécutif</div>
+  <h2>Checklist complète</h2>
+
+  <div class="grid grid-2" style="gap:16px;flex:1;">
+    <div>
+      <div class="alert alert-red" style="margin-bottom:10px;">
+        <div class="alert-title" style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;">🔴 Critique — À corriger cette semaine</div>
+        <div class="alert-body">
+          <ul style="padding-left:14px;display:flex;flex-direction:column;gap:5px;font-size:13px;">
+            <li>☐ Corriger les horaires commerciaux (14h-15h → 08:30-18:00)</li>
+            <li>☐ Créer les politiques SLA (Urgent / Normal / Faible)</li>
+            <li>☐ Étendre le trigger d'accusé de réception à tous les canaux</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="alert alert-orange" style="margin-bottom:10px;">
+        <div class="alert-title" style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;">🟠 Important — Dans les 2 semaines</div>
+        <div class="alert-body">
+          <ul style="padding-left:14px;display:flex;flex-direction:column;gap:5px;font-size:13px;">
+            <li>☐ Réactiver notifications d'assignation agents</li>
+            <li>☐ Réactiver automations relance tickets en attente</li>
+            <li>☐ Publier les 10 articles en brouillon</li>
+            <li>☐ Auditer et migrer les 5 comptes fonctionnels</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="alert alert-yellow">
+        <div class="alert-title" style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;">🟡 Amélioration — Mois 1</div>
+        <div class="alert-body">
+          <ul style="padding-left:14px;display:flex;flex-direction:column;gap:5px;font-size:13px;">
+            <li>☐ Créer des groupes par domaine expertise</li>
+            <li>☐ Configurer le routage par type de demande</li>
+            <li>☐ Activer vues Social Messaging</li>
+            <li>☐ Supprimer les champs désactivés inutilisés</li>
+            <li>☐ Ajouter des labels aux articles Help Center</li>
+            <li>☐ Corriger l'intitulé du trigger fermeture annuelle</li>
+            <li>☐ Envisager la distinction Durieu / Owatrol dans les formulaires et le Help Center</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div class="alert alert-green">
+        <div class="alert-title" style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;">✅ Points forts à conserver</div>
+        <div class="alert-body">
+          <ul style="padding-left:14px;display:flex;flex-direction:column;gap:4px;font-size:13px;">
+            <li>Nomenclature macros avec "::" — à généraliser</li>
+            <li>Organisation vues par marketplace — exemplaire</li>
+            <li>Help Center avec 58 articles publiés — base solide</li>
+            <li>Intégration Magento — continuer à enrichir</li>
+            <li>CSAT actif — améliorer le taux de réponse</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:auto;background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.4);">
+        <h3 style="color:var(--purple-light);margin-bottom:10px;">Questions ou suite de mission ?</h3>
+        <p style="font-size:13px;line-height:1.8;color:rgba(255,255,255,.8);">
+          Stéphanie<br>
+          <strong>OmyCare Consulting</strong><br>
+          Spécialiste Zendesk · Configuration & Optimisation
+        </p>
+        <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+          <span class="badge badge-purple">Audit</span>
+          <span class="badge badge-purple">Configuration</span>
+          <span class="badge badge-purple">Formation</span>
+          <span class="badge badge-purple">Automatisation</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /deck -->
+
+<!-- ─── NAVIGATION ────────────────────────────────────────────────── -->
+<nav class="nav" id="nav">
+  <button id="btn-prev" onclick="navigate(-1)">← Préc.</button>
+  <div class="dots" id="dots"></div>
+  <button id="btn-next" onclick="navigate(1)">Suiv. →</button>
+  <div class="slide-counter" id="counter"></div>
+</nav>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 0;
+
+  // Build dots
+  const dotsEl = document.getElementById('dots');
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  });
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    dotsEl.children[current].classList.remove('active');
+    current = Math.max(0, Math.min(total - 1, n));
+    slides[current].classList.add('active');
+    dotsEl.children[current].classList.add('active');
+    document.getElementById('counter').textContent = (current + 1) + ' / ' + total;
+    slides[current].scrollTop = 0;
+  }
+
+  function navigate(dir) { goTo(current + dir); }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); navigate(1); }
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp') { e.preventDefault(); navigate(-1); }
+  });
+
+  // Touch swipe
+  let touchX = 0;
+  document.addEventListener('touchstart', e => touchX = e.touches[0].clientX);
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 50) navigate(dx < 0 ? 1 : -1);
+  });
+
+  // Init
+  goTo(0);
+</script>
+</body>
+</html>
