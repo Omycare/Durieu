@@ -493,7 +493,7 @@
     <div class="alert alert-yellow">
       <div class="alert-title"><span class="badge badge-yellow">C6</span> 10 articles Help Center en brouillon non publiés</div>
       <div class="alert-body">
-        10 articles sont en cours de rédaction mais non publiés, empêchant l'AI Agent de les utiliser pour résoudre des tickets. Parmi eux : informations retour colis, produits biosourcés, recyclabilité emballages.
+        10 articles sont en cours de rédaction mais non publiés — invisibles pour les clients et non indexés dans le Help Center. Parmi eux : informations retour colis, produits biosourcés, recyclabilité emballages.
         <br><strong>Action :</strong> Réviser et publier les brouillons ou les supprimer s'ils sont obsolètes.
       </div>
     </div>
@@ -777,7 +777,6 @@
               <tr><td>David Veyrat</td><td><span class="badge badge-green">Humain</span></td></tr>
               <tr><td>Stéphanie Laigle</td><td><span class="badge badge-green">Humain</span></td></tr>
               <tr><td>Adrien Baudoux</td><td><span class="badge badge-green">Humain</span></td></tr>
-              <tr><td>AI Agent</td><td><span class="badge badge-purple">IA</span></td></tr>
               <tr><td>info@owatrol.com</td><td><span class="badge badge-orange">Compte fonctionnel</span></td></tr>
               <tr><td>sav.logistique@durieu.com</td><td><span class="badge badge-orange">Compte fonctionnel</span></td></tr>
               <tr><td>comptabiliteclient@durieu.com</td><td><span class="badge badge-orange">Compte fonctionnel</span></td></tr>
@@ -845,27 +844,27 @@
       <div>
         <div class="card" style="margin-bottom:10px;">
           <div class="section-label">Intelligence Artificielle</div>
-          <div class="alert alert-indigo" style="margin-bottom:8px;">
-            <div class="alert-title" style="font-size:11px;">AI Agent présent</div>
+          <div class="alert alert-red" style="margin-bottom:8px;">
+            <div class="alert-title" style="font-size:11px;">🔴 AI Agent non configuré</div>
             <div class="alert-body">
-              Un compte "AI Agent" est actif dans l'instance. Les champs IA (résumé, sentiment, langue, confiance) sont configurés.
-              <br><br><strong>Apps IA installées :</strong>
+              Aucun AI Agent Zendesk n'est actif dans l'instance. Le chat présent est l'ancienne version legacy (Zendesk Chat), activée mais sans messages entrants.
+              <br><br><strong>Apps installées :</strong>
               <ul style="padding-left:14px;margin-top:4px;font-size:11px;">
-                <li>Knowledge Capture — capture d'articles depuis tickets</li>
+                <li>Knowledge Capture — installé mais non exploité</li>
                 <li>Social Messaging for Zendesk</li>
                 <li>Magento 2 by Zenplates</li>
               </ul>
             </div>
           </div>
           <div class="alert alert-yellow">
-            <div class="alert-title" style="font-size:11px;">Optimisations recommandées</div>
+            <div class="alert-title" style="font-size:11px;">Recommandations IA</div>
             <div class="alert-body">
               <ul style="padding-left:14px;display:flex;flex-direction:column;gap:4px;">
-                <li>Publier les 10 brouillons pour enrichir la base de l'AI Agent</li>
-                <li>Ajouter des <strong>labels</strong> aux articles pour améliorer la pertinence</li>
+                <li>Configurer et activer l'<strong>AI Agent Zendesk</strong> pour le déflection de tickets</li>
+                <li>Publier les 10 brouillons pour enrichir le Help Center</li>
+                <li>Ajouter des <strong>labels</strong> aux articles (indispensable pour l'IA)</li>
                 <li>Configurer les <strong>suggestions d'articles</strong> dans le panneau agent</li>
-                <li>Activer les <strong>suggestions de macros</strong> via l'intelligence Zendesk</li>
-                <li>Vérifier les règles de routage de l'AI Agent vs agents humains</li>
+                <li>Remplacer le chat legacy par le <strong>Web Widget moderne</strong></li>
               </ul>
             </div>
           </div>
@@ -939,7 +938,7 @@
           <ul style="padding-left:14px;display:flex;flex-direction:column;gap:3px;font-size:12px;color:#374151;">
             <li>Réactiver + adapter les automations de relance (en attente 72h, 7 jours)</li>
             <li>Publier les 10 articles Help Center en brouillon</li>
-            <li>Vérifier et documenter le scope de l'AI Agent</li>
+            <li>Évaluer et activer l'AI Agent Zendesk pour la déflection</li>
             <li>Identifier les 5 comptes fonctionnels et proposer migration en Light Agent</li>
           </ul>
         </div>
@@ -970,7 +969,7 @@
             <span class="badge badge-green">Optimisation · ~2 jours</span>
           </div>
           <ul style="padding-left:14px;display:flex;flex-direction:column;gap:3px;font-size:12px;color:#374151;">
-            <li>Configurer le skill-based routing pour l'AI Agent</li>
+            <li>Configurer le skill-based routing et intégrer l'AI Agent</li>
             <li>Mettre en place le flux de récupération CSAT (taux réponse : 13,8%)</li>
             <li>Créer des flux automatisés marketplace (suivi commande, retour, litige)</li>
             <li>Explorer Zendesk Explore pour tableaux de bord temps de réponse par canal</li>
@@ -1027,7 +1026,7 @@
       </div>
       <div class="alert alert-green">
         <div class="alert-title" style="font-size:12px;">Suggestions d'articles aux agents</div>
-        <div class="alert-body">Knowledge Capture est installé. Configurer les suggestions d'articles dans le panneau contextuel pour réduire le temps de réponse sur les conseils produit.</div>
+        <div class="alert-body">Knowledge Capture est installé mais non exploité. Configurer les suggestions d'articles dans le panneau agent pour réduire le temps de réponse sur les conseils produit.</div>
       </div>
       <div class="alert alert-yellow">
         <div class="alert-title" style="font-size:12px;">Champs conditionnels dans les formulaires</div>
