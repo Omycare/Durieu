@@ -222,15 +222,13 @@
 <div class="slide" id="slide-2">
   <div class="slide-header">
     <h2>📊 Diagnostic du compte Owatrol &amp; Durieu</h2>
-    <span class="sh-badge">SUITE PROFESSIONAL · 4 140 €/AN · 3 AGENTS FACTURÉS</span>
+    <span class="sh-badge">SUITE PROFESSIONAL · 3 AGENTS FACTURÉS</span>
   </div>
   <div class="slide-body">
     <div style="display:flex;align-items:center;gap:10px;background:#EDE9FE;border:1px solid #DDD6FE;border-radius:10px;padding:10px 16px;margin-bottom:14px;flex-wrap:wrap;">
       <span style="font-size:11px;font-weight:700;color:#5B21B6;text-transform:uppercase;letter-spacing:1px;">Abonnement</span>
       <span style="background:#fff;border:1px solid #DDD6FE;border-radius:99px;padding:3px 12px;font-size:11px;font-weight:700;color:#1E1B4B;">Zendesk Suite Professional</span>
-      <span style="font-size:11px;color:#4B5563;">4 140 €/an · facturation annuelle</span>
       <span style="background:#FEF3C7;border:1px solid #FDE68A;border-radius:99px;padding:3px 12px;font-size:11px;font-weight:700;color:#92400E;">3 agents facturés</span>
-      <span style="font-size:11px;color:#9CA3AF;">Prochain paiement : 29 oct. 2026</span>
     </div>
     <div class="grid grid-4" style="margin-bottom:16px;">
       <div class="card stat">
@@ -265,7 +263,6 @@
           <li>CSAT actif — 13 146 évaluations collectées · 84,7% satisfaction</li>
           <li>Chat Zendesk activé (version legacy)</li>
           <li>Statut "En pause" (On Hold) activé et utilisé</li>
-          <li>Automations de réouverture actives (pause → ouvert, attente → ouvert)</li>
           <li>1 seul ticket suspendu — bon filtrage anti-spam</li>
         </ul>
       </div>
@@ -276,7 +273,6 @@
           <li><strong>Horaires commerciaux mal configurés</strong> — 14h-15h seulement (1h/jour)</li>
           <li>Trigger d'accusé de réception limité à <strong>1 adresse email</strong> seulement</li>
           <li>Notifications de tickets en attente désactivées (24h, 5 jours)</li>
-          <li>Notifications d'assignation agent <strong>désactivées</strong></li>
           <li>1 seul groupe — aucune segmentation par équipe</li>
           <li>5 comptes fonctionnels consomment des licences agent</li>
           <li>10 articles Help Center en brouillon non publiés</li>
@@ -300,7 +296,7 @@
         La compte ne dispose d'aucun SLA (Service Level Agreement). Il est impossible de mesurer les délais de réponse, de prioriser les tickets urgents, ou de déclencher des alertes en cas de dépassement. C'est la base du pilotage qualité d'un service client.
         <br><br>
         <strong>Impact :</strong> Aucun engagement client · Impossible d'identifier les tickets en retard · Pas d'escalade automatique · Données Explore incomplètes.
-        <br><strong>Action :</strong> Créer au minimum 3 niveaux SLA (Urgent, Normal, Faible) avec des délais adaptés au secteur.
+        <br><strong>Action :</strong> Créer au minimum 3 niveaux SLA (Urgent, Normal, Faible) avec des délais adaptés au secteur. Il sera également nécessaire d'ajouter un trigger de priorité à l'arrivée des tickets (Normal par défaut, avec exceptions spécifiques).
       </div>
     </div>
 
@@ -347,21 +343,7 @@
           <li><strong>OFF</strong> — "Notification de demande en attente depuis 5 jours"</li>
         </ul>
         <br>Résultat : les tickets en statut "En attente" peuvent rester sans suivi indéfiniment. Aucun rappel n'est envoyé au client s'il ne répond pas.
-        <br><strong>Action :</strong> Réactiver les deux automations et adapter les délais (ex : 72h + 7 jours).
-      </div>
-    </div>
-
-    <div class="alert alert-orange">
-      <div class="alert-title"><span class="badge badge-orange">C5</span> Agents non notifiés lors des assignations</div>
-      <div class="alert-body">
-        Trois triggers de notification internes sont désactivés :
-        <ul style="margin-top:6px;padding-left:16px;font-size:11px;">
-          <li><strong>OFF</strong> — "Notifier l'assigné de l'affectation"</li>
-          <li><strong>OFF</strong> — "Notifier le groupe de l'affectation"</li>
-          <li><strong>OFF</strong> — "Notifier l'assigné de la mise à jour des commentaires"</li>
-        </ul>
-        <br>Les agents ne sont pas alertés quand un ticket leur est assigné ou mis à jour — risque de tickets oubliés.
-        <br><strong>Action :</strong> Réactiver ou recréer ces triggers selon les préférences de l'équipe.
+        <br><strong>Action :</strong> Réactiver les deux automations et adapter les délais (ex : 72h + 7 jours). À noter : une automation remet actuellement les tickets en statut "Ouvert" après 24h — ce comportement est à revoir car il peut masquer les tickets en attente de réponse client.
       </div>
     </div>
 
@@ -432,8 +414,8 @@
             <tbody>
               <tr><td><span class="badge badge-green">ON</span></td><td>Clore ticket 4 jours après Résolu</td></tr>
               <tr><td><span class="badge badge-green">ON</span></td><td>Demander CSAT (automatisme système)</td></tr>
-              <tr><td><span class="badge badge-green">ON</span></td><td>Ticket en pause → ouvert</td></tr>
-              <tr><td><span class="badge badge-green">ON</span></td><td>Ticket en attente → ouvert</td></tr>
+              <tr><td><span class="badge badge-orange">ON ⚠</span></td><td>Ticket en pause → ouvert (à revoir)</td></tr>
+              <tr><td><span class="badge badge-orange">ON ⚠</span></td><td>Ticket en attente → ouvert (à revoir)</td></tr>
               <tr><td><span class="badge badge-red">OFF ⚠</span></td><td>Notification en attente depuis 24h</td></tr>
               <tr><td><span class="badge badge-red">OFF ⚠</span></td><td>Notification en attente depuis 5 jours</td></tr>
             </tbody>
@@ -443,9 +425,8 @@
           <div class="alert-title">⚠ Points d'attention</div>
           <div class="alert-body">
             <ul style="padding-left:14px;display:flex;flex-direction:column;gap:4px;">
-              <li>La clôture automatique est fixée à <strong>4 jours</strong> après résolution — délai très court, à vérifier</li>
               <li>Le trigger "Réouverture" est ON mais sans conditions visibles documentées</li>
-              <li>Erreur typographique : "Fermeture annuelle <strong>de le</strong> société" → "de <strong>la</strong> société"</li>
+              <li>Pourquoi remettre un ticket "En pause" ou "En attente" à "Ouvert" sans qu'un événement réel ne le justifie ? Ce comportement est à documenter et probablement à corriger.</li>
             </ul>
           </div>
         </div>
@@ -556,8 +537,8 @@
             </tbody>
           </table>
           <div class="alert alert-green" style="margin-top:10px;">
-            <div class="alert-title" style="font-size:11px;">✓ Organisation marketplace exemplaire</div>
-            <div class="alert-body">La segmentation par plateforme (Amazon, Leroy Merlin, ADEO…) est un vrai point fort. Elle facilite la priorisation et le suivi par canal.</div>
+            <div class="alert-title" style="font-size:11px;">✓ Organisation marketplace</div>
+            <div class="alert-body">La segmentation par plateforme (Amazon, Leroy Merlin, ADEO…) facilite la priorisation et le suivi par canal.</div>
           </div>
         </div>
       </div>
@@ -582,7 +563,7 @@
           </div>
           <div class="alert alert-orange" style="margin-bottom:10px;">
             <div class="alert-title" style="font-size:11px;">Vues Social Messaging désactivées</div>
-            <div class="alert-body">Les vues "Social messaging - Assigned to you" et "Unassigned" sont OFF. L'app Social Messaging est installée — si des canaux sociaux sont actifs, ces vues devraient être activées.</div>
+            <div class="alert-body">Les vues "Social messaging - Assigned to you" et "Unassigned" sont désactivées. L'app Social Messaging est installée — si des canaux sociaux sont actifs, ces vues devraient être réactivées pour assurer le suivi.</div>
           </div>
           <div class="alert alert-yellow">
             <div class="alert-title" style="font-size:11px;">11 vues inactives</div>
@@ -629,7 +610,8 @@
         </div>
         <div class="alert alert-yellow" style="margin-bottom:8px;">
           <div class="alert-title" style="font-size:11px;">Champs désactivés détectés</div>
-          <div class="alert-body">"Client particulier" et "Client professionnel" (checkbox) sont désactivés — remplacés par le tagger "Type de client". Les anciens peuvent être supprimés.</div>
+          <div class="alert-body">Les champs "Client particulier" et "Client professionnel" (checkbox) sont désactivés — remplacés par le tagger "Type de client". Les anciens champs peuvent être supprimés après vérification du flux.</div>
+          <div class="alert-body">La séparation en deux formulaires distincts (agents / utilisateurs finaux) mérite d'être clarifiée : un formulaire unique avec champs conditionnels pourrait simplifier l'expérience.</div>
         </div>
         <div class="alert alert-blue">
           <div class="alert-title" style="font-size:11px;">Champs IA détectés</div>
@@ -660,8 +642,8 @@
             </tbody>
           </table>
           <div class="alert alert-orange">
-            <div class="alert-title" style="font-size:11px;">5 licences agent consommées par des boîtes mail</div>
-            <div class="alert-body">Ces comptes fonctionnels occupent des licences payantes. Ils pourraient être convertis en "agents light" (lecture seule) ou en adresses alias selon leur usage réel.</div>
+            <div class="alert-title" style="font-size:11px;">5 licences agent consommées par des boîtes mail fonctionnelles</div>
+            <div class="alert-body">Ces comptes occupent des licences payantes. Selon leur usage réel, ils pourraient être convertis en "agents light" (lecture seule) ou en adresses alias — à analyser avant toute modification.</div>
           </div>
         </div>
       </div>
@@ -798,7 +780,6 @@
             <li>Corriger l'horaire "Owatrol FRANCE" → Lun-Ven 08:30–18:00</li>
             <li>Créer 3 politiques SLA (Urgent / Normal / Faible)</li>
             <li>Corriger le trigger d'accusé de réception (supprimer condition email unique)</li>
-            <li>Réactiver les triggers de notification d'assignation agent/groupe</li>
           </ul>
         </div>
       </div>
@@ -812,9 +793,9 @@
           </div>
           <ul style="padding-left:14px;display:flex;flex-direction:column;gap:3px;font-size:12px;color:#374151;">
             <li>Réactiver + adapter les automations de relance (en attente 72h, 7 jours)</li>
-            <li>Publier les 10 articles Help Center en brouillon</li>
+            <li>Réviser et publier les 10 articles Help Center en brouillon</li>
             <li>Évaluer et activer l'AI Agent Zendesk pour la déflection</li>
-            <li>Identifier les 5 comptes fonctionnels et proposer migration en Light Agent</li>
+            <li>Identifier les 5 comptes fonctionnels and understand the use of it</li>
           </ul>
         </div>
       </div>
@@ -876,7 +857,7 @@
         <div class="section-label">Flux 2 — SAV Retours simplifié</div>
         <p style="font-size:12px;line-height:1.6;color:#4B5563;">
           Tags <code style="background:#F3F4F6;padding:1px 4px;border-radius:3px;color:#374151;">retour_client</code> (58) + <code style="background:#F3F4F6;padding:1px 4px;border-radius:3px;color:#374151;">remboursement</code> (58).
-          <br><br><strong style="color:#1E1B4B;">Automatiser :</strong> envoi immédiat de la macro RETOUR::Procédure + étiquette retour selon le motif.
+          <br><br><strong style="color:#1E1B4B;">Automatiser :</strong> envoi immédiat de la macro RETOUR::Procédure + génération d'une étiquette retour selon le motif, si le transporteur le permet.
         </p>
       </div>
       <div class="card">
@@ -977,130 +958,131 @@
   </div>
 </div>
 
-<!-- ══════════════════ SLIDE 13 — VUE D'ENSEMBLE 3 COLONNES ══════════════════ -->
+<!-- ══════════════════ SLIDE 13 — RÉSUMÉ 3 COLONNES ══════════════════ -->
 <div class="slide" id="slide-3b">
   <div class="slide-header">
-    <h2>🗂 Vue d'ensemble — Évaluation par domaine</h2>
+    <h2>🗂 Résumé de l'audit — Points clés par domaine</h2>
     <span class="sh-badge">STRUCTURE · PROCESSUS · MANAGEMENT</span>
   </div>
   <div class="col3-layout">
 
-    <!-- COL 1 : Structure & Security -->
+    <!-- COL 1 : Structure & Sécurité -->
     <div class="col3-col">
-      <div class="col3-head col3-head-1"><h3>Structure &amp;<br>Security</h3></div>
+      <div class="col3-head col3-head-1"><h3>Structure &amp;<br>Sécurité</h3></div>
       <div class="col3-content">
 
         <div class="col3-section">
-          <div class="col3-section-title">Mail</div>
-          <div class="col3-item">🔴 hello@durieu.com with SLA issues.</div>
+          <div class="col3-section-title">E-mail</div>
+          <div class="col3-item">🔴 hello@durieu.com utilisé sans SLA configuré.</div>
+          <div class="col3-item">🟡 Pas de logo ni d'image dans le template ou la signature.</div>
+          <div class="col3-item">🟡 Nom du compte affiché : Owatrol (à aligner avec Durieu).</div>
         </div>
 
         <div class="col3-section">
-          <div class="col3-section-title">Email template</div>
-          <div class="col3-item">🟡 Customize and add logo.</div>
-          <div class="col3-item">🟡 No image in template or in signature.</div>
-          <div class="col3-item">Owatrol name as account name shown.</div>
+          <div class="col3-section-title">Vues</div>
+          <div class="col3-item">🟢 Émojis utilisés pour identifier rapidement les files.</div>
+          <div class="col3-item">🟡 Colonnes non organisées — colonne SLA manquante.</div>
+          <div class="col3-item">🟡 Certaines colonnes (ex. satisfaction) visibles sur tickets ouverts à tort.</div>
         </div>
 
         <div class="col3-section">
-          <div class="col3-section-title">Views</div>
-          <div class="col3-item">🟢 Add emoticons to quickly recognize.</div>
-          <div class="col3-item">🟡 Columns are not arranged. Missing SLA column and some like satisfaction offer should not be there when tickets are open.</div>
+          <div class="col3-section-title">Groupes</div>
+          <div class="col3-item">🔴 Aucun groupe créé — pas de segmentation par équipe.</div>
         </div>
 
         <div class="col3-section">
-          <div class="col3-section-title">Groups</div>
-          <div class="col3-item">🔴 No groups.</div>
+          <div class="col3-section-title">Canaux</div>
+          <div class="col3-item">🔴 Pas d'AI Agent configuré.</div>
+          <div class="col3-item">🟡 Pas de Web Widget dans le Help Center.</div>
+          <div class="col3-item">🟡 Chat legacy Zendesk activé mais sans messages entrants.</div>
         </div>
 
         <div class="col3-section">
-          <div class="col3-section-title">Channels</div>
-          <div class="col3-item">🔴 No IA agent.</div>
-          <div class="col3-item">🟡 No widget in help center.</div>
-          <div class="col3-item">🟡 There is a chat — unclear where it comes from.</div>
-          <div class="col3-item">🟡 Old chat activated, not messages.</div>
-        </div>
-
-        <div class="col3-section">
-          <div class="col3-section-title">Forms</div>
-          <div class="col3-item">🟡 Different forms don't seem connected to Zendesk. From the web, ticket was not received. Then there is the one from the FAQ.</div>
-          <div class="col3-item">🟡 Why are two forms separated (agents &amp; users)? If a field is not available, in the same form agents see all they need plus user selections — just need to clarify.</div>
+          <div class="col3-section-title">Formulaires</div>
+          <div class="col3-item">🟡 Formulaire web non connecté à Zendesk — tickets non reçus.</div>
+          <div class="col3-item">🟡 Deux formulaires séparés (agents / utilisateurs) à clarifier.</div>
         </div>
 
         <div class="col3-section">
           <div class="col3-section-title">Copilot</div>
-          <div class="col3-item">🟡 Not yet ALL activated. Some features are inactive.</div>
-          <div class="col3-item">🟡 13 recommendations pending.</div>
+          <div class="col3-item">🟡 Pas entièrement activé — fonctionnalités inactives.</div>
+          <div class="col3-item">🟡 13 recommandations Copilot en attente d'application.</div>
         </div>
 
       </div>
     </div>
 
-    <!-- COL 2 : Processes & Automation -->
+    <!-- COL 2 : Processus & Automatisation -->
     <div class="col3-col">
-      <div class="col3-head col3-head-2"><h3>Processes &amp;<br>Automation</h3></div>
+      <div class="col3-head col3-head-2"><h3>Processus &amp;<br>Automatisation</h3></div>
       <div class="col3-content">
 
         <div class="col3-section">
           <div class="col3-section-title">Triggers</div>
-          <div class="col3-item">🟡 No trigger for priority normal.</div>
-          <div class="col3-item">🟡 Affecter automatiquement au premier agent répondant par e-mail — Inactif.</div>
-          <div class="col3-item">🟡 Broken trigger: Qualification client professionnel — <a href="https://durieu.zendesk.com/admin/objects-rules/rules/triggers/187203059 50108" target="_blank">voir trigger</a></div>
-          <div class="col3-item">🟡 Broken trigger: Qualification client particulier — <a href="https://durieu.zendesk.com/admin/objects-rules/rules/triggers/187212834 21084" target="_blank">voir trigger</a></div>
-          <div class="col3-item">🟡 Could add a tag for tracking: Résolution automatique tickets de commande à confirmer ou à expédier.</div>
-          <div class="col3-item">🟡 Ticket logistique auto "ouvert" — what is the goal? Why status open?</div>
+          <div class="col3-item">🟡 Aucun trigger de priorité pour les tickets normaux.</div>
+          <div class="col3-item">🟡 Affectation automatique au premier agent répondant — inactif.</div>
+          <div class="col3-item">🟡 2 triggers cassés : Qualification client pro &amp; particulier.</div>
+          <div class="col3-item">🟡 Ticket logistique auto "ouvert" — objectif à clarifier.</div>
         </div>
 
         <div class="col3-section">
           <div class="col3-section-title">Automations</div>
-          <div class="col3-item">🔴 Bump bump solved — inactive.</div>
-          <div class="col3-item">🔴 CSAT - OLD version still activated.</div>
-          <div class="col3-item">🔴 Ticket en pause → ouvert, why this?</div>
-          <div class="col3-item">🔴 Ticket en attente → ouvert, why this?</div>
+          <div class="col3-item">🔴 "Bump bump solved" — inactif.</div>
+          <div class="col3-item">🔴 CSAT ancienne version toujours active.</div>
+          <div class="col3-item">🔴 Ticket en pause → ouvert (comportement à revoir).</div>
+          <div class="col3-item">🔴 Ticket en attente → ouvert (comportement à revoir).</div>
         </div>
 
         <div class="col3-section">
           <div class="col3-section-title">SLA</div>
-          <div class="col3-item">🔴 No SLA configured.</div>
+          <div class="col3-item">🔴 Aucune politique SLA configurée.</div>
         </div>
 
         <div class="col3-section">
           <div class="col3-section-title">Macros</div>
-          <div class="col3-item">🔴 Some macros set comments and status to Open. Should go to Pending when the ball is in the user's court after an answer.</div>
+          <div class="col3-item">🔴 Des macros remettent le statut à "Ouvert" — devrait être "En attente".</div>
         </div>
 
         <div class="col3-section">
-          <div class="col3-section-title">Schedule</div>
-          <div class="col3-item">🔴 1 hour Monday to Friday (14h–15h). This is a configuration mistake.</div>
+          <div class="col3-section-title">Horaires</div>
+          <div class="col3-item">🔴 Horaire configuré : 14h–15h Lun–Ven seulement (erreur).</div>
         </div>
 
       </div>
     </div>
 
-    <!-- COL 3 : Management & Operational Quality -->
+    <!-- COL 3 : Management & Qualité opérationnelle -->
     <div class="col3-col">
-      <div class="col3-head col3-head-3"><h3>Management &amp;<br>Operational Quality</h3></div>
+      <div class="col3-head col3-head-3"><h3>Management &amp;<br>Qualité opérationnelle</h3></div>
       <div class="col3-content">
 
         <div class="col3-section">
           <div class="col3-section-title">Explore</div>
-          <div class="col3-item">🟡 Good personalized dashboard — design can be improved for better KPI readability.</div>
+          <div class="col3-item">🟡 Tableau de bord personnalisé existant — à améliorer pour les KPIs clés.</div>
         </div>
 
         <div class="col3-section">
-          <div class="col3-section-title">Knowledge Base</div>
-          <div class="col3-item">🔴 No labels in the FAQ articles — essential for IA to work properly.</div>
-          <div class="col3-item">🟡 Comments active on articles — is this intentional?</div>
+          <div class="col3-section-title">Help Center</div>
+          <div class="col3-item">🔴 Aucun label sur les articles — indispensable pour l'IA.</div>
+          <div class="col3-item">🟡 Commentaires activés sur les articles — à valider.</div>
+          <div class="col3-item">🟡 10 articles en brouillon non publiés.</div>
         </div>
 
         <div class="col3-section">
-          <div class="col3-section-title">Apps</div>
-          <div class="col3-item">🔴 Missing important apps: Time Tracking and Select an Address.</div>
+          <div class="col3-section-title">Applications</div>
+          <div class="col3-item">🔴 Applications manquantes : Time Tracking, Sélection d'adresse.</div>
+          <div class="col3-item">🟡 Knowledge Capture installé mais non exploité.</div>
         </div>
 
         <div class="col3-section">
-          <div class="col3-section-title">Status</div>
-          <div class="col3-item">🔴 Wrong use of status. Check macros and automations — should use Pending, not Open, when waiting for user reply.</div>
+          <div class="col3-section-title">Statuts</div>
+          <div class="col3-item">🔴 Mauvaise utilisation des statuts — "En attente" doit être utilisé après réponse agent, pas "Ouvert".</div>
+        </div>
+
+        <div class="col3-section">
+          <div class="col3-section-title">Licences</div>
+          <div class="col3-item">🟡 5 comptes fonctionnels consomment des licences agent payantes.</div>
+          <div class="col3-item">🟡 Plan Suite Professional — seulement 3 agents facturés (à vérifier vs usage réel).</div>
         </div>
 
       </div>
