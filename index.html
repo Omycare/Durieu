@@ -261,16 +261,16 @@
           <li>Vues organisées par marketplace (Amazon, Leroy Merlin, Cdiscount…)</li>
           <li>Intégration Magento 2 connectée (commandes liées)</li>
           <li>CSAT actif — 13 146 évaluations collectées · 84,7% satisfaction</li>
-          <li>Chat Zendesk activé (version legacy)</li>
+          <li>Chat Zendesk activé ⚠ (version legacy)</li>
           <li>Statut "En pause" (On Hold) activé et utilisé</li>
-          <li>1 seul ticket suspendu — bon filtrage anti-spam</li>
+          <li>1 seul ticket suspendu, bon filtrage anti-spam</li>
         </ul>
       </div>
       <div class="card">
         <div class="section-label">✗ Problèmes détectés</div>
         <ul class="check-list cross-list">
-          <li><strong>0 politique SLA</strong> — aucun engagement de délai de réponse</li>
-          <li><strong>Horaires commerciaux mal configurés</strong> — 14h-15h seulement (1h/jour)</li>
+          <li><strong>0 politique SLA</strong>: aucun engagement de délai de réponse</li>
+          <li><strong>Horaires commerciaux mal configurés</strong>: 14h-15h seulement (1h/jour)</li>
           <li>Trigger d'accusé de réception limité à <strong>1 adresse email</strong> seulement</li>
           <li>Notifications de tickets en attente désactivées (24h, 5 jours)</li>
           <li>1 seul groupe — aucune segmentation par équipe</li>
@@ -322,7 +322,7 @@
 <div class="slide" id="slide-4">
   <div class="slide-header">
     <h2>🟠 Points importants — Corrections prioritaires</h2>
-    <span class="sh-badge">4 CORRECTIONS · SEMAINE 1-2</span>
+    <span class="sh-badge">5 CORRECTIONS · SEMAINE 1-2</span>
   </div>
   <div class="slide-body">
     <div class="alert alert-orange">
@@ -339,18 +339,27 @@
       <div class="alert-body">
         Les deux automations de relance sont désactivées :
         <ul style="margin-top:6px;padding-left:16px;font-size:11px;">
-          <li><strong>OFF</strong> — "Notification de demande en attente depuis 24 heures"</li>
-          <li><strong>OFF</strong> — "Notification de demande en attente depuis 5 jours"</li>
+          <li><strong>OFF</strong>: "Notification de demande en attente depuis 24 heures"</li>
+          <li><strong>OFF</strong>: "Notification de demande en attente depuis 5 jours"</li>
         </ul>
         <br>Résultat : les tickets en statut "En attente" peuvent rester sans suivi indéfiniment. Aucun rappel n'est envoyé au client s'il ne répond pas.
-        <br><strong>Action :</strong> Réactiver les deux automations et adapter les délais (ex : 72h + 7 jours). À noter : une automation remet actuellement les tickets en statut "Ouvert" après 24h — ce comportement est à revoir car il peut masquer les tickets en attente de réponse client.
+        <br><strong>Action :</strong> Réactiver les deux automations et adapter les délais (ex : 72h + 7 jours). À noter : une automation remet actuellement les tickets en statut "Ouvert" après 24h, ce comportement est à revoir car il peut masquer les tickets en attente de réponse client.
+      </div>
+    </div>
+
+    <div class="alert alert-orange">
+      <div class="alert-title"><span class="badge badge-orange">C5</span> Page Facebook — avertissement de connexion détecté</div>
+      <div class="alert-body">
+        La page Facebook connectée à Zendesk via Social Messaging affiche un avertissement indiquant qu'une mise à jour ou une vérification est nécessaire. Cela peut entraîner une interruption de la réception des messages Facebook dans Zendesk.
+        <br><br>
+        <strong>Action :</strong> Vérifier la connexion Facebook dans les paramètres Social Messaging et revalider les permissions de la page.
       </div>
     </div>
 
     <div class="alert alert-yellow">
       <div class="alert-title"><span class="badge badge-yellow">C6</span> 10 articles Help Center en brouillon non publiés</div>
       <div class="alert-body">
-        10 articles sont en cours de rédaction mais non publiés — invisibles pour les clients et non indexés dans le Help Center. Parmi eux : informations retour colis, produits biosourcés, recyclabilité emballages.
+        10 articles sont en cours de rédaction mais non publiés, invisibles pour les clients et non indexés dans le Help Center. Parmi eux : informations retour colis, produits biosourcés, recyclabilité emballages.
         <br><strong>Action :</strong> Réviser et publier les brouillons ou les supprimer s'ils sont obsolètes.
       </div>
     </div>
@@ -563,7 +572,8 @@
           </div>
           <div class="alert alert-orange" style="margin-bottom:10px;">
             <div class="alert-title" style="font-size:11px;">Vues Social Messaging désactivées</div>
-            <div class="alert-body">Les vues "Social messaging - Assigned to you" et "Unassigned" sont désactivées. L'app Social Messaging est installée — si des canaux sociaux sont actifs, ces vues devraient être réactivées pour assurer le suivi.</div>
+            <div class="alert-body">Les vues "Social messaging - Assigned to you" et "Unassigned" sont désactivées. L'app Social Messaging est installée. ⚠️ La page Facebook affiche un avertissement indiquant qu’une mise à jour ou une vérification est nécessaire. Vérifier s’il est nécessaire d’avoir une vue spécifique pour cela.
+</div>
           </div>
           <div class="alert alert-yellow">
             <div class="alert-title" style="font-size:11px;">11 vues inactives</div>
@@ -995,6 +1005,7 @@
           <div class="col3-item">🔴 Pas d'AI Agent configuré.</div>
           <div class="col3-item">🟡 Pas de Web Widget dans le Help Center.</div>
           <div class="col3-item">🟡 Chat legacy Zendesk activé mais sans messages entrants.</div>
+          <div class="col3-item">🟠 Page Facebook — avertissement de vérification à traiter.</div>
         </div>
 
         <div class="col3-section">
