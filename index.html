@@ -1115,6 +1115,143 @@
 </div>
 
 
+<!-- ══════════════════ SLIDE 13 — SYNTHÈSE ══════════════════ -->
+<div class="slide" id="slide-synthese">
+  <div class="slide-header">
+    <h2>🗂 Synthèse complète de l'audit</h2>
+    <span class="sh-badge">3 DOMAINES ANALYSÉS</span>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;flex:1;min-height:0;padding:14px 20px 72px;overflow:hidden;">
+
+    <!-- COL 1 : Structure & Sécurité -->
+    <div style="border-radius:12px;overflow:hidden;border:1px solid #EDE9FE;display:flex;flex-direction:column;">
+      <div style="background:linear-gradient(135deg,#7C3AED,#A855F7);padding:13px 18px;">
+        <div style="font-weight:800;font-size:13px;color:#fff;">Structure &amp; Sécurité</div>
+      </div>
+      <div style="background:#fff;flex:1;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:10px;">
+
+        <div>
+          <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:#14B8A6;text-transform:uppercase;margin-bottom:5px;">E-mail</div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🔴 hello@durieu.com utilisé sans SLA configuré</div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🟡 Pas de logo ni image dans le template email</div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🟡 Nom du compte "Owatrol" : à aligner avec Durieu</div>
+        </div>
+
+        <div>
+          <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:#14B8A6;text-transform:uppercase;margin-bottom:5px;">Vues <a href="https://durieu.zendesk.com/admin/workspaces/agent-workspace/views" target="_blank" style="color:#8B5CF6;font-size:10px;text-decoration:none;">↗</a></div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🟢 Emojis utilisés pour identifier rapidement les files</div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🟡 Colonnes non organisées, colonne SLA manquante</div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🟡 Colonne satisfaction visible sur tickets ouverts</div>
+        </div>
+
+        <div>
+          <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:#14B8A6;text-transform:uppercase;margin-bottom:5px;">Groupes</div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🔴 1 seul groupe "Assistance" : pas de segmentation</div>
+        </div>
+
+        <div>
+          <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:#14B8A6;text-transform:uppercase;margin-bottom:5px;">Canaux</div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🔴 Pas d'AI Agent configuré</div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🟡 Pas de Web Widget dans le Help Center</div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🟡 Chat legacy actif mais sans messages entrants</div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🟠 Facebook : avertissement de vérification actif</div>
+        </div>
+
+        <div>
+          <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:#14B8A6;text-transform:uppercase;margin-bottom:5px;">Formulaires <a href="https://durieu.zendesk.com/admin/objects-rules/tickets/ticket-forms" target="_blank" style="color:#8B5CF6;font-size:10px;text-decoration:none;">↗</a></div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🟡 Formulaire web Durieu non connecté à Zendesk</div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🟡 2 formulaires séparés (agents / utilisateurs) à clarifier</div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🟡 Pas de champs conditionnels configurés</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- COL 2 : Processus & Automatisation -->
+    <div style="border-radius:12px;overflow:hidden;border:1px solid #FCE7F3;display:flex;flex-direction:column;">
+      <div style="background:linear-gradient(135deg,#EC4899,#F97316);padding:13px 18px;">
+        <div style="font-weight:800;font-size:13px;color:#fff;">Processus &amp; Automatisation</div>
+      </div>
+      <div style="background:#fff;flex:1;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:10px;">
+
+        <div>
+          <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:#14B8A6;text-transform:uppercase;margin-bottom:5px;">Triggers <a href="https://durieu.zendesk.com/admin/objects-rules/rules/triggers" target="_blank" style="color:#8B5CF6;font-size:10px;text-decoration:none;">↗</a></div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🟡 Aucun trigger de priorité pour les tickets normaux</div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🟡 Affectation auto (1er répondant) désactivée</div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🟡 2 triggers cassés : qualification client pro &amp; particulier</div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🟡 Acusé réception conditionné à un seul email</div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🟡 3 triggers notification affectation agent : désactivés</div>
+        </div>
+
+        <div>
+          <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:#14B8A6;text-transform:uppercase;margin-bottom:5px;">Automations <a href="https://durieu.zendesk.com/admin/objects-rules/rules/automations" target="_blank" style="color:#8B5CF6;font-size:10px;text-decoration:none;">↗</a></div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🔴 Relances en attente désactivées (24h &amp; 5 jours OFF)</div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🔴 Automation "En pause → Ouvert" à revoir</div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🔴 Automation "En attente → Ouvert" à revoir</div>
+        </div>
+
+        <div>
+          <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:#14B8A6;text-transform:uppercase;margin-bottom:5px;">SLA <a href="https://durieu.zendesk.com/admin/objects-rules/rules/slas" target="_blank" style="color:#8B5CF6;font-size:10px;text-decoration:none;">↗</a></div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🔴 Aucune politique SLA configurée</div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🔴 Horaire "Owatrol FRANCE" : 14h–15h seulement (erreur)</div>
+        </div>
+
+        <div>
+          <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:#14B8A6;text-transform:uppercase;margin-bottom:5px;">Macros <a href="https://durieu.zendesk.com/admin/workspaces/agent-workspace/macros" target="_blank" style="color:#8B5CF6;font-size:10px;text-decoration:none;">↗</a></div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🔴 Macros remettent le statut à "Ouvert" au lieu de "En attente"</div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🟢 Nomenclature "::" bien organisée · 36 macros</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- COL 3 : Management & Qualité opérationnelle -->
+    <div style="border-radius:12px;overflow:hidden;border:1px solid #FEF3C7;display:flex;flex-direction:column;">
+      <div style="background:linear-gradient(135deg,#F59E0B,#EF4444);padding:13px 18px;">
+        <div style="font-weight:800;font-size:13px;color:#fff;">Management &amp; Qualité opérationnelle</div>
+      </div>
+      <div style="background:#fff;flex:1;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:10px;">
+
+        <div>
+          <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:#14B8A6;text-transform:uppercase;margin-bottom:5px;">Explore</div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🟡 Dashboard personnalisé existant, à améliorer pour les KPIs clés</div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🟡 Pas de mesure délai de réponse par canal ni par marque</div>
+        </div>
+
+        <div>
+          <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:#14B8A6;text-transform:uppercase;margin-bottom:5px;">Help Center <a href="https://durieu.zendesk.com/knowledge/articles" target="_blank" style="color:#8B5CF6;font-size:10px;text-decoration:none;">↗</a></div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🔴 Aucun label sur les articles (indispensable pour l'IA)</div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🟡 10 articles en brouillon non publiés</div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🟡 Commentaires activés sur les articles : à valider</div>
+        </div>
+
+        <div>
+          <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:#14B8A6;text-transform:uppercase;margin-bottom:5px;">Applications <a href="https://durieu.zendesk.com/admin/apps-integrations/apps/support-apps" target="_blank" style="color:#8B5CF6;font-size:10px;text-decoration:none;">↗</a></div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🔴 Time Tracking non installé</div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🟡 Knowledge Capture installé mais non exploité</div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🟡 Chat legacy actif mais sans usage réel</div>
+        </div>
+
+        <div>
+          <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:#14B8A6;text-transform:uppercase;margin-bottom:5px;">Statuts &amp; Licences</div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🔴 "En attente" mal utilisé : doit être après réponse agent</div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🟡 5 comptes fonctionnels consomment des licences payantes</div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🟡 Suite Pro 3 agents : vérifier l'usage réel vs agents actifs</div>
+        </div>
+
+        <div>
+          <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:#14B8A6;text-transform:uppercase;margin-bottom:5px;">Copilot &amp; IA <a href="https://durieu.zendesk.com/admin/ai/copilot" target="_blank" style="color:#8B5CF6;font-size:10px;text-decoration:none;">↗</a></div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🟡 Copilot pas entièrement activé</div>
+          <div style="font-size:11.5px;color:#374151;line-height:1.6;">🟡 13 recommandations Copilot en attente d'application</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
 <!-- ══════════════════ SLIDE 14 — MERCI ══════════════════ -->
 <div class="slide slide-dark" id="slide-13">
   <div class="cover-centered">
