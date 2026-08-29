@@ -185,6 +185,10 @@
   .col3-item::before { content: '-'; color: #475569; flex-shrink: 0; }
   .col3-item a { color: #818CF8; font-size: 10px; word-break: break-all; }
 
+  /* ── ZD LINKS ───────────────────────────────────────── */
+  .zd-link-sm { color: #818CF8; font-size: 10px; text-decoration: none; margin-left: 4px; opacity: .8; }
+  .zd-link-sm:hover { opacity: 1; text-decoration: underline; }
+
   /* ── RESPONSIVE ─────────────────────────────────────── */
   @media (max-width: 768px) {
     .slide-header { padding-left: 140px; }
@@ -291,7 +295,7 @@
   </div>
   <div class="slide-body">
     <div class="alert alert-red">
-      <div class="alert-title"><span class="badge badge-red">C1</span> Aucune politique SLA configurée</div>
+      <div class="alert-title"><span class="badge badge-red">C1</span> Aucune politique SLA configurée <a href="https://durieu.zendesk.com/admin/objects-rules/rules/slas" target="_blank" class="zd-link-sm">↗ Gérer les SLA</a></div>
       <div class="alert-body">
         La compte ne dispose d'aucun SLA (Service Level Agreement). Il est impossible de mesurer les délais de réponse, de prioriser les tickets urgents, ou de déclencher des alertes en cas de dépassement. C'est la base du pilotage qualité d'un service client.
         <br><br>
@@ -301,7 +305,7 @@
     </div>
 
     <div class="alert alert-red">
-      <div class="alert-title"><span class="badge badge-red">C2</span> Horaires commerciaux : configuration erronée — 1h/jour seulement</div>
+      <div class="alert-title"><span class="badge badge-red">C2</span> Horaires commerciaux : configuration erronée — 1h/jour seulement <a href="https://durieu.zendesk.com/admin/objects-rules/rules/schedules" target="_blank" class="zd-link-sm">↗ Modifier les horaires</a></div>
       <div class="alert-body">
         L'horaire "Owatrol FRANCE" est configuré <strong>Lundi au Vendredi de 14h00 à 15h00 uniquement</strong> — soit 5 heures par semaine au lieu des ~40-50h attendues. Cette erreur fausse tous les calculs de temps de réponse et impactera directement les SLA dès leur création.
         <br><br>
@@ -326,7 +330,7 @@
   </div>
   <div class="slide-body">
     <div class="alert alert-orange">
-      <div class="alert-title"><span class="badge badge-orange">C3</span> Trigger d'accusé de réception limité à une seule adresse email</div>
+      <div class="alert-title"><span class="badge badge-orange">C3</span> Trigger d'accusé de réception limité à une seule adresse email <a href="https://durieu.zendesk.com/admin/objects-rules/rules/triggers" target="_blank" class="zd-link-sm">↗ Gérer les triggers</a></div>
       <div class="alert-body">
         Le trigger "Réponse automatique Prise en compte de la demande" ne s'active que si le ticket est reçu à <code style="background:#F3F4F6;padding:1px 6px;border-radius:4px;color:#374151;">hello@owatrol.com</code>. Les tickets provenant d'Amazon, des marketplaces, ou d'autres canaux <strong>ne reçoivent aucun accusé de réception</strong>.
         <br><br>
@@ -335,7 +339,7 @@
     </div>
 
     <div class="alert alert-orange">
-      <div class="alert-title"><span class="badge badge-orange">C4</span> Notifications de tickets en attente désactivées</div>
+      <div class="alert-title"><span class="badge badge-orange">C4</span> Notifications de tickets en attente désactivées <a href="https://durieu.zendesk.com/admin/objects-rules/rules/automations" target="_blank" class="zd-link-sm">↗ Gérer les automations</a></div>
       <div class="alert-body">
         Les deux automations de relance sont désactivées :
         <ul style="margin-top:6px;padding-left:16px;font-size:11px;">
@@ -348,7 +352,7 @@
     </div>
 
     <div class="alert alert-orange">
-      <div class="alert-title"><span class="badge badge-orange">C5</span> Page Facebook — avertissement de connexion détecté</div>
+      <div class="alert-title"><span class="badge badge-orange">C5</span> Page Facebook — avertissement de connexion détecté <a href="https://durieu.zendesk.com/admin/channels/messaging/social" target="_blank" class="zd-link-sm">↗ Social Messaging</a></div>
       <div class="alert-body">
         La page Facebook connectée à Zendesk via Social Messaging affiche un avertissement indiquant qu'une mise à jour ou une vérification est nécessaire. Cela peut entraîner une interruption de la réception des messages Facebook dans Zendesk.
         <br><br>
@@ -357,7 +361,7 @@
     </div>
 
     <div class="alert alert-yellow">
-      <div class="alert-title"><span class="badge badge-yellow">C6</span> 10 articles Help Center en brouillon non publiés</div>
+      <div class="alert-title"><span class="badge badge-yellow">C6</span> 10 articles Help Center en brouillon non publiés <a href="https://durieu.zendesk.com/knowledge/articles" target="_blank" class="zd-link-sm">↗ Articles HC</a></div>
       <div class="alert-body">
         10 articles sont en cours de rédaction mais non publiés, invisibles pour les clients et non indexés dans le Help Center. Parmi eux : informations retour colis, produits biosourcés, recyclabilité emballages.
         <br><strong>Action :</strong> Réviser et publier les brouillons ou les supprimer s'ils sont obsolètes.
@@ -377,7 +381,7 @@
       <div>
         <div class="card" style="margin-bottom:10px;">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-            <div class="section-label" style="margin:0;">Triggers — 22 total</div>
+            <div class="section-label" style="margin:0;">Triggers — 22 total <a href="https://durieu.zendesk.com/admin/objects-rules/rules/triggers" target="_blank" class="zd-link-sm">↗</a></div>
             <div style="display:flex;gap:5px;"><span class="badge badge-green">16 actifs</span><span class="badge badge-gray">6 inactifs</span></div>
           </div>
           <div style="overflow-y:auto;max-height:calc(100vh - 220px);">
@@ -415,7 +419,7 @@
       <div>
         <div class="card" style="margin-bottom:10px;">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-            <div class="section-label" style="margin:0;">Automations — 6 total</div>
+            <div class="section-label" style="margin:0;">Automations — 6 total <a href="https://durieu.zendesk.com/admin/objects-rules/rules/automations" target="_blank" class="zd-link-sm">↗</a></div>
             <div style="display:flex;gap:5px;"><span class="badge badge-green">4 actives</span><span class="badge badge-gray">2 inactives</span></div>
           </div>
           <table>
@@ -453,14 +457,14 @@
   <div class="slide-body">
     <div class="grid grid-2" style="gap:14px;margin-bottom:14px;">
       <div class="alert alert-red">
-        <div class="alert-title">Politiques SLA</div>
+        <div class="alert-title">Politiques SLA <a href="https://durieu.zendesk.com/admin/objects-rules/rules/slas" target="_blank" class="zd-link-sm">↗ Créer un SLA</a></div>
         <div class="alert-body">
           <div style="font-size:48px;font-weight:900;color:#EF4444;line-height:1;margin:8px 0;">0</div>
           Aucune politique SLA définie. Le compte ne peut pas mesurer ni garantir ses délais de traitement.
         </div>
       </div>
       <div class="alert alert-red">
-        <div class="alert-title">Horaires "Owatrol FRANCE" — Configuration actuelle</div>
+        <div class="alert-title">Horaires "Owatrol FRANCE" — Configuration actuelle <a href="https://durieu.zendesk.com/admin/objects-rules/rules/schedules" target="_blank" class="zd-link-sm">↗ Modifier</a></div>
         <div class="alert-body">
           <table style="margin-top:6px;">
             <thead><tr><th>Jour</th><th>Plage horaire</th><th>Durée</th></tr></thead>
@@ -532,7 +536,7 @@
     <div class="grid grid-2" style="gap:14px;">
       <div>
         <div class="card" style="margin-bottom:10px;">
-          <div class="section-label">Vues actives (20) — Bon niveau</div>
+          <div class="section-label">Vues actives (20) — Bon niveau <a href="https://durieu.zendesk.com/admin/workspaces/agent-workspace/views" target="_blank" class="zd-link-sm">↗</a></div>
           <table>
             <thead><tr><th>Catégorie</th><th>Vues</th></tr></thead>
             <tbody>
@@ -556,7 +560,7 @@
         <div class="card">
           <div class="section-label">Points d'amélioration</div>
           <div class="alert alert-yellow" style="margin-bottom:10px;">
-            <div class="alert-title" style="font-size:11px;">1 seul groupe — Aucune segmentation équipe</div>
+            <div class="alert-title" style="font-size:11px;">1 seul groupe — Aucune segmentation équipe <a href="https://durieu.zendesk.com/admin/people/groups" target="_blank" class="zd-link-sm">↗ Gérer les groupes</a></div>
             <div class="alert-body">
               Tous les agents sont dans le groupe <strong>"Assistance"</strong>. Pourtant les macros montrent une séparation claire entre domaines :
               <div class="tags" style="margin-top:8px;">
@@ -595,7 +599,7 @@
     <div class="grid grid-2" style="gap:14px;">
       <div>
         <div class="card" style="margin-bottom:10px;">
-          <div class="section-label">Formulaires & Champs</div>
+          <div class="section-label">Formulaires & Champs <a href="https://durieu.zendesk.com/admin/objects-rules/tickets/ticket-forms" target="_blank" class="zd-link-sm">↗</a></div>
           <table style="margin-bottom:12px;">
             <thead><tr><th>Formulaire</th><th>Usage</th></tr></thead>
             <tbody>
@@ -631,7 +635,7 @@
 
       <div>
         <div class="card">
-          <div class="section-label">Agents (18 total)</div>
+          <div class="section-label">Agents (18 total) <a href="https://durieu.zendesk.com/admin/people/team/agents" target="_blank" class="zd-link-sm">↗</a></div>
           <table style="margin-bottom:12px;">
             <thead><tr><th>Agent</th><th>Type</th></tr></thead>
             <tbody>
@@ -694,7 +698,7 @@
           </div>
         </div>
         <div class="card">
-          <div class="section-label">Articles en brouillon à publier</div>
+          <div class="section-label">Articles en brouillon à publier <a href="https://durieu.zendesk.com/knowledge/articles" target="_blank" class="zd-link-sm">↗ HC Admin</a></div>
           <ul class="check-list warn-list" style="font-size:12px;">
             <li>Que veulent dire les pictogrammes sur l'emballage ?</li>
             <li>Les emballages sont-ils recyclables ?</li>
@@ -712,7 +716,7 @@
         <div class="card" style="margin-bottom:10px;">
           <div class="section-label">Intelligence Artificielle</div>
           <div class="alert alert-red" style="margin-bottom:8px;">
-            <div class="alert-title" style="font-size:11px;">🔴 AI Agent non configuré</div>
+            <div class="alert-title" style="font-size:11px;">🔴 AI Agent non configuré <a href="https://durieu.zendesk.com/admin/ai-agents" target="_blank" class="zd-link-sm">↗ Configurer</a></div>
             <div class="alert-body">
               Aucun AI Agent Zendesk n'est actif dans l'instance. Le chat présent est l'ancienne version legacy (Zendesk Chat), activée mais sans messages entrants.
               <br><br><strong>Apps installées :</strong>
