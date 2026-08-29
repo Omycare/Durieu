@@ -198,7 +198,7 @@
 </style>
 </head>
 <body>
-<img src="omycarelogo.png" alt="OmyCare" class="logo-fixed">
+<a href="https://omycare.fr/" target="_blank" rel="noopener"><img src="omycarelogo.png" alt="OmyCare" class="logo-fixed"></a>
 <div class="deck" id="deck">
 
 <!-- ══════════════════ SLIDE 1 — COVER ══════════════════ -->
@@ -1105,16 +1105,21 @@
 <!-- ══════════════════ SLIDE 14 — MERCI ══════════════════ -->
 <div class="slide slide-dark" id="slide-13">
   <div class="cover-centered">
-    <div style="font-size:54px;margin-bottom:20px;">🙏</div>
-    <h1 style="font-size:clamp(32px,5vw,58px);font-weight:800;line-height:1.15;margin-bottom:20px;color:#fff;">
-      Merci <span style="color:#C4B5FD;">pour votre<br>confiance</span>
+    <div style="font-size:48px;margin-bottom:16px;">🙏</div>
+    <h1 style="font-size:clamp(26px,3.8vw,46px);font-weight:800;line-height:1.15;margin-bottom:24px;color:#fff;text-align:center;white-space:nowrap;">
+      Merci <span style="color:#C4B5FD;">pour votre confiance</span>
     </h1>
-    <p style="font-size:15px;color:rgba(255,255,255,.5);max-width:580px;line-height:1.9;text-align:center;">
+    <div style="display:flex;align-items:center;justify-content:center;gap:32px;margin-bottom:24px;">
+      <a href="https://omycare.fr/" target="_blank" rel="noopener"><img src="omycarelogo.png" alt="OmyCare" style="height:38px;opacity:.9;"></a>
+      <div style="width:1px;height:36px;background:rgba(255,255,255,.2);"></div>
+      <img src="durieulogo.png" alt="Durieu" style="height:34px;opacity:.9;">
+    </div>
+    <p style="font-size:15px;color:rgba(255,255,255,.5);max-width:700px;line-height:2;text-align:center;">
       Ce rapport est la base de travail pour optimiser votre compte Zendesk.<br>
-      Nous restons disponibles pour toute question ou pour mettre en œuvre<br>ces recommandations ensemble.
+      Nous restons disponibles pour toute question ou pour la mise en œuvre.
     </p>
     <div class="merci-info">
-      <div class="merci-info-col"><div class="mi-label">Auditeur</div><div class="mi-val">Stéphanie · OmyCare</div></div>
+      <div class="merci-info-col"><div class="mi-label">Auditeur</div><div class="mi-val">Stephanie · OmyCare</div></div>
       <div class="merci-info-col"><div class="mi-label">Contact</div><div class="mi-val">guillaume.garcia@omycare.fr</div></div>
       <div class="merci-info-col"><div class="mi-label">Date</div><div class="mi-val">Août 2026</div></div>
     </div>
@@ -1153,6 +1158,8 @@
     dotsEl.children[current].classList.add('active');
     document.getElementById('counter').textContent = (current+1)+' / '+total;
     slides[current].scrollTop = 0;
+    const logoFixed = document.querySelector('.logo-fixed');
+    if (logoFixed) logoFixed.style.display = current === total-1 ? 'none' : '';
   }
   function navigate(dir) { goTo(current+dir); }
   document.addEventListener('keydown', e => {
