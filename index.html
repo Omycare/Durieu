@@ -1106,6 +1106,63 @@
 
     </div>
 
+    <!-- DIAGNOSTIC & AMÉLIORATIONS -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:10px;overflow:hidden;border:1px solid #312E81;flex-shrink:0;">
+
+      <!-- LEFT : Diagnostic narratif -->
+      <div style="background:#1E1B4B;padding:16px 20px;">
+        <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:#A5B4FC;text-transform:uppercase;margin-bottom:10px;">Diagnostic · ce qui se passe probablement</div>
+        <p style="font-size:11px;color:#C7D2FE;line-height:1.75;margin:0 0 10px;">
+          Le <strong style="color:#fff;">Marketplace</strong> est le premier motif de contact (1 047 tickets, 42% du volume) avec des clients Leroy Merlin et Amazon sous pression de délai. Sans SLA configuré et avec <strong style="color:#fff;">14,6h de délai médian</strong> de première réponse, une partie de ces tickets dépasse les engagements des plateformes — générant des pénalités vendeur invisibles dans Zendesk.
+        </p>
+        <p style="font-size:11px;color:#C7D2FE;line-height:1.75;margin:0 0 10px;">
+          Les <strong style="color:#fff;">automations de relance sont désactivées</strong> et les 3 triggers de notification d'affectation agent sont OFF. Résultat : les tickets en attente restent ouverts sans action, personne ne relance, et le client a déjà abandonné quand l'agent réagit. Ce seul point explique en grande partie les <strong style="color:#fff;">34% de tickets non résolus</strong> sur J-7.
+        </p>
+        <p style="font-size:11px;color:#C7D2FE;line-height:1.75;margin:0;">
+          Avec <strong style="color:#fff;">15 évaluations CSAT en 8 mois</strong> (taux de réponse &lt; 1%), le compte est aveugle sur la satisfaction réelle. La note de 93.3% est statistiquement non représentative. Le phénomène "Autres" — 56% de tickets sans tag en juillet — indique une perte progressive de la discipline de qualification : les données deviennent inexploitables pour le pilotage.
+        </p>
+      </div>
+
+      <!-- RIGHT : Comment améliorer -->
+      <div style="background:#0F172A;padding:16px 20px;">
+        <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:#A5B4FC;text-transform:uppercase;margin-bottom:10px;">Comment améliorer</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+
+          <div style="display:flex;align-items:flex-start;gap:9px;">
+            <span style="background:#EF4444;color:#fff;font-size:8.5px;font-weight:700;padding:2px 7px;border-radius:99px;white-space:nowrap;flex-shrink:0;margin-top:1px;">Urgent</span>
+            <span style="font-size:11px;color:#E2E8F0;line-height:1.6;">Corriger l'horaire business (14h–15h est une erreur bloquante). Sans horaire correct, aucun SLA ne peut être créé ni mesuré.</span>
+          </div>
+
+          <div style="display:flex;align-items:flex-start;gap:9px;">
+            <span style="background:#EF4444;color:#fff;font-size:8.5px;font-weight:700;padding:2px 7px;border-radius:99px;white-space:nowrap;flex-shrink:0;margin-top:1px;">Urgent</span>
+            <span style="font-size:11px;color:#E2E8F0;line-height:1.6;">Créer un trigger dédié Marketplace (LM + Amazon) avec priorité haute et délai cible 4h — éviter les pénalités plateforme.</span>
+          </div>
+
+          <div style="display:flex;align-items:flex-start;gap:9px;">
+            <span style="background:#EF4444;color:#fff;font-size:8.5px;font-weight:700;padding:2px 7px;border-radius:99px;white-space:nowrap;flex-shrink:0;margin-top:1px;">Urgent</span>
+            <span style="font-size:11px;color:#E2E8F0;line-height:1.6;">Réactiver les automations de relance (72h et 5 jours). C'est le levier le plus rapide pour améliorer le taux de résolution de 66% vers 90%.</span>
+          </div>
+
+          <div style="display:flex;align-items:flex-start;gap:9px;">
+            <span style="background:#F97316;color:#fff;font-size:8.5px;font-weight:700;padding:2px 7px;border-radius:99px;white-space:nowrap;flex-shrink:0;margin-top:1px;">Court terme</span>
+            <span style="font-size:11px;color:#E2E8F0;line-height:1.6;">Lancer une campagne CSAT : relance 48h après envoi enquête. Objectif : passer de &lt;1% à 20% de taux de réponse pour avoir un signal fiable.</span>
+          </div>
+
+          <div style="display:flex;align-items:flex-start;gap:9px;">
+            <span style="background:#F97316;color:#fff;font-size:8.5px;font-weight:700;padding:2px 7px;border-radius:99px;white-space:nowrap;flex-shrink:0;margin-top:1px;">Court terme</span>
+            <span style="font-size:11px;color:#E2E8F0;line-height:1.6;">Imposer le tagging obligatoire via trigger ou formulaire. 56% de tickets sans tag en juillet = données inutilisables pour le pilotage.</span>
+          </div>
+
+          <div style="display:flex;align-items:flex-start;gap:9px;">
+            <span style="background:#8B5CF6;color:#fff;font-size:8.5px;font-weight:700;padding:2px 7px;border-radius:99px;white-space:nowrap;flex-shrink:0;margin-top:1px;">Moyen terme</span>
+            <span style="font-size:11px;color:#E2E8F0;line-height:1.6;">Créer des groupes par domaine (Marketplace / Conseil produit / Logistique) avec routage automatique — réduire le délai de 14,6h vers 4h.</span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
   </div>
 </div>
 
