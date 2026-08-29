@@ -933,187 +933,181 @@
 <!-- ══════════════════ SLIDE 12 — KPIs RECOMMANDÉS ══════════════════ -->
 <div class="slide" id="slide-dashboard">
   <div class="slide-header">
-    <h2>📊 KPIs recommandés : Tableau de bord analytique</h2>
+    <h2>📊 KPIs : de l'Explore actuel à une lecture analytique</h2>
     <span class="sh-badge">DONNÉES RÉELLES · API ZENDESK · 2026</span>
   </div>
-  <div class="slide-body" style="padding:14px 20px 72px;">
+  <div class="slide-body" style="padding:10px 18px 72px;display:flex;flex-direction:column;gap:10px;">
 
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px;">
+    <!-- BANDE COMPARATIF : avant / après -->
+    <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;border-radius:10px;overflow:hidden;border:1px solid #E5E7EB;flex-shrink:0;">
 
-      <!-- Volume J-14 -->
-      <div class="card" style="padding:14px;overflow:hidden;">
-        <div style="height:3px;background:#8B5CF6;margin:-14px -14px 10px -14px;"></div>
-        <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#9CA3AF;margin-bottom:5px;">Volume tickets · J-14</div>
-        <div style="font-size:32px;font-weight:900;color:#1E1B4B;line-height:1.1;">273</div>
-        <div style="font-size:10px;color:#6B7280;margin-top:3px;">tickets créés</div>
-        <div style="margin-top:7px;display:flex;align-items:center;gap:5px;">
-          <span style="background:#DCFCE7;color:#166534;font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;">▲ +3%</span>
-          <span style="font-size:10px;color:#9CA3AF;">vs J-28</span>
-        </div>
-        <div style="margin-top:9px;display:flex;align-items:flex-end;gap:2px;height:22px;">
-          <div style="flex:1;background:#DDD6FE;border-radius:1px 1px 0 0;height:37%;"></div>
-          <div style="flex:1;background:#DDD6FE;border-radius:1px 1px 0 0;height:32%;"></div>
-          <div style="flex:1;background:#DDD6FE;border-radius:1px 1px 0 0;height:72%;"></div>
-          <div style="flex:1;background:#8B5CF6;border-radius:1px 1px 0 0;height:100%;"></div>
-          <div style="flex:1;background:#8B5CF6;border-radius:1px 1px 0 0;height:99%;"></div>
-          <div style="flex:1;background:#8B5CF6;border-radius:1px 1px 0 0;height:85%;"></div>
-          <div style="flex:1;background:#8B5CF6;border-radius:1px 1px 0 0;height:94%;"></div>
-        </div>
-      </div>
-
-      <!-- Taux de résolution -->
-      <div class="card" style="padding:14px;overflow:hidden;">
-        <div style="height:3px;background:#F97316;margin:-14px -14px 10px -14px;"></div>
-        <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#9CA3AF;margin-bottom:5px;">Taux de résolution</div>
-        <div style="font-size:32px;font-weight:900;color:#C2410C;line-height:1.1;">66%</div>
-        <div style="font-size:10px;color:#6B7280;margin-top:3px;">résolus / créés · 7 jours</div>
-        <div style="margin-top:8px;background:#E5E7EB;border-radius:99px;height:7px;overflow:hidden;">
-          <div style="width:66%;height:100%;background:linear-gradient(90deg,#F97316,#EA580C);border-radius:99px;"></div>
-        </div>
-        <div style="display:flex;justify-content:space-between;margin-top:5px;">
-          <span style="font-size:10px;color:#C2410C;font-weight:600;">✓ 92 résolus</span>
-          <span style="font-size:10px;color:#F97316;font-weight:600;">⏳ 47 en cours</span>
-        </div>
-        <div style="margin-top:6px;font-size:10px;color:#9CA3AF;">Objectif : maintenir ≥ 90%</div>
-      </div>
-
-      <!-- CSAT -->
-      <div class="card" style="padding:14px;overflow:hidden;">
-        <div style="height:3px;background:#EF4444;margin:-14px -14px 10px -14px;"></div>
-        <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#9CA3AF;margin-bottom:5px;">Satisfaction CSAT</div>
-        <div style="font-size:32px;font-weight:900;color:#166534;line-height:1.1;">93.3%</div>
-        <div style="font-size:10px;color:#6B7280;margin-top:3px;">15 évaluations récentes</div>
-        <div style="margin-top:7px;background:#FEE2E2;border:1px solid #FECACA;border-radius:6px;padding:5px 8px;">
-          <span style="font-size:10px;color:#991B1B;font-weight:700;">🔴 Taux de réponse : &lt; 1%</span>
-        </div>
-        <div style="font-size:10px;color:#9CA3AF;margin-top:5px;">Échantillon non représentatif · action urgente</div>
-      </div>
-
-      <!-- Délai 1ère réponse — CRITIQUE -->
-      <div class="card" style="padding:14px;overflow:hidden;border-color:#FCA5A5;background:#FFF8F8;">
-        <div style="height:3px;background:#EF4444;margin:-14px -14px 10px -14px;"></div>
-        <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#EF4444;margin-bottom:5px;">Délai 1ère réponse 🔴</div>
-        <div style="font-size:32px;font-weight:900;color:#DC2626;line-height:1.1;">14.6 h</div>
-        <div style="font-size:10px;color:#6B7280;margin-top:3px;">878 min médiane · objectif ≤ 4 h</div>
-        <div style="margin-top:9px;position:relative;">
-          <div style="background:#FECACA;border-radius:99px;height:8px;overflow:hidden;">
-            <div style="width:100%;height:100%;background:#EF4444;border-radius:99px;"></div>
+      <!-- Colonne gauche : Explore actuel -->
+      <div style="background:#F8FAFC;">
+        <div style="background:#1E3A5F;padding:7px 14px;font-size:10px;font-weight:700;letter-spacing:1px;color:rgba(255,255,255,.75);text-transform:uppercase;">📸 Zendesk Explore actuel</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;height:100px;overflow:hidden;">
+          <div style="overflow:hidden;border-right:1px solid #E5E7EB;">
+            <div style="font-size:8px;font-weight:700;color:#64748B;padding:3px 6px;background:#F1F5F9;border-bottom:1px solid #E5E7EB;">Volumes de Support</div>
+            <img src="explore-volumes.png" alt="Explore volumes" style="width:100%;object-fit:cover;object-position:top left;height:86px;display:block;">
           </div>
-          <div style="position:absolute;top:-2px;left:27%;width:2px;height:12px;background:#374151;border-radius:1px;"></div>
+          <div style="overflow:hidden;border-right:1px solid #E5E7EB;">
+            <div style="font-size:8px;font-weight:700;color:#64748B;padding:3px 6px;background:#F1F5F9;border-bottom:1px solid #E5E7EB;">Temps de résolution</div>
+            <img src="explore-resolution.png" alt="Explore résolution" style="width:100%;object-fit:cover;object-position:top left;height:86px;display:block;">
+          </div>
+          <div style="overflow:hidden;">
+            <div style="font-size:8px;font-weight:700;color:#64748B;padding:3px 6px;background:#F1F5F9;border-bottom:1px solid #E5E7EB;">Productivité agents</div>
+            <img src="explore-productivite.png" alt="Explore productivité" style="width:100%;object-fit:cover;object-position:top left;height:86px;display:block;">
+          </div>
         </div>
-        <div style="display:flex;justify-content:space-between;margin-top:4px;">
-          <span style="font-size:9px;color:#DC2626;font-weight:700;">▲ 878 min médiane</span>
-          <span style="font-size:9px;color:#374151;">│ cible : 240 min</span>
+        <div style="padding:5px 10px;background:#FEF3C7;border-top:1px solid #FDE68A;">
+          <span style="font-size:9px;color:#92400E;font-weight:600;">⚠ Métriques dispersées sur 3 onglets · pas de vue unifiée · labels anglais · KPIs manquants</span>
+        </div>
+      </div>
+
+      <!-- Flèche centrale -->
+      <div style="background:#8B5CF6;display:flex;align-items:center;justify-content:center;width:36px;flex-shrink:0;">
+        <div style="color:#fff;font-size:18px;font-weight:900;writing-mode:horizontal-tb;">→</div>
+      </div>
+
+      <!-- Colonne droite : Version recommandée (KPI cards) -->
+      <div style="background:#fff;">
+        <div style="background:linear-gradient(135deg,#7C3AED,#8B5CF6);padding:7px 14px;font-size:10px;font-weight:700;letter-spacing:1px;color:rgba(255,255,255,.9);text-transform:uppercase;">✨ Version analytique recommandée</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;height:100px;border-bottom:1px solid #E5E7EB;">
+
+          <!-- Volume J-14 -->
+          <div style="padding:10px 11px;border-right:1px solid #F3F4F6;overflow:hidden;">
+            <div style="height:2px;background:#8B5CF6;margin:-10px -11px 7px;"></div>
+            <div style="font-size:7.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#9CA3AF;margin-bottom:3px;">Volume · J-14</div>
+            <div style="font-size:26px;font-weight:900;color:#1E1B4B;line-height:1;">273</div>
+            <div style="font-size:9px;color:#6B7280;margin-top:2px;">tickets créés</div>
+            <div style="margin-top:5px;display:flex;align-items:center;gap:4px;">
+              <span style="background:#DCFCE7;color:#166534;font-size:9px;font-weight:700;padding:1px 5px;border-radius:99px;">▲ +3%</span>
+              <span style="font-size:9px;color:#9CA3AF;">vs J-28</span>
+            </div>
+            <div style="margin-top:6px;display:flex;align-items:flex-end;gap:1px;height:16px;">
+              <div style="flex:1;background:#DDD6FE;border-radius:1px 1px 0 0;height:37%;"></div>
+              <div style="flex:1;background:#DDD6FE;border-radius:1px 1px 0 0;height:32%;"></div>
+              <div style="flex:1;background:#DDD6FE;border-radius:1px 1px 0 0;height:72%;"></div>
+              <div style="flex:1;background:#8B5CF6;border-radius:1px 1px 0 0;height:100%;"></div>
+              <div style="flex:1;background:#8B5CF6;border-radius:1px 1px 0 0;height:99%;"></div>
+              <div style="flex:1;background:#8B5CF6;border-radius:1px 1px 0 0;height:85%;"></div>
+              <div style="flex:1;background:#8B5CF6;border-radius:1px 1px 0 0;height:94%;"></div>
+            </div>
+          </div>
+
+          <!-- Taux résolution -->
+          <div style="padding:10px 11px;border-right:1px solid #F3F4F6;overflow:hidden;">
+            <div style="height:2px;background:#F97316;margin:-10px -11px 7px;"></div>
+            <div style="font-size:7.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#9CA3AF;margin-bottom:3px;">Taux résolution</div>
+            <div style="font-size:26px;font-weight:900;color:#C2410C;line-height:1;">66%</div>
+            <div style="font-size:9px;color:#6B7280;margin-top:2px;">92 résolus / 139 créés · J-7</div>
+            <div style="margin-top:5px;background:#E5E7EB;border-radius:99px;height:5px;overflow:hidden;">
+              <div style="width:66%;height:100%;background:linear-gradient(90deg,#F97316,#EA580C);border-radius:99px;"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-top:3px;">
+              <span style="font-size:9px;color:#C2410C;font-weight:600;">92 résolus</span>
+              <span style="font-size:9px;color:#F97316;">47 en cours</span>
+            </div>
+            <div style="font-size:9px;color:#9CA3AF;margin-top:3px;">Objectif : ≥ 90%</div>
+          </div>
+
+          <!-- CSAT -->
+          <div style="padding:10px 11px;border-right:1px solid #F3F4F6;overflow:hidden;">
+            <div style="height:2px;background:#EF4444;margin:-10px -11px 7px;"></div>
+            <div style="font-size:7.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#9CA3AF;margin-bottom:3px;">Satisfaction CSAT</div>
+            <div style="font-size:26px;font-weight:900;color:#166534;line-height:1;">93.3%</div>
+            <div style="font-size:9px;color:#6B7280;margin-top:2px;">15 évaluations récentes</div>
+            <div style="margin-top:5px;background:#FEE2E2;border:1px solid #FECACA;border-radius:4px;padding:3px 6px;">
+              <span style="font-size:9px;color:#991B1B;font-weight:700;">🔴 Taux réponse : &lt; 1%</span>
+            </div>
+            <div style="font-size:9px;color:#9CA3AF;margin-top:3px;">Échantillon non représentatif</div>
+          </div>
+
+          <!-- Délai réponse -->
+          <div style="padding:10px 11px;overflow:hidden;background:#FFF8F8;">
+            <div style="height:2px;background:#EF4444;margin:-10px -11px 7px;"></div>
+            <div style="font-size:7.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#EF4444;margin-bottom:3px;">Délai 1ère réponse 🔴</div>
+            <div style="font-size:26px;font-weight:900;color:#DC2626;line-height:1;">14.6h</div>
+            <div style="font-size:9px;color:#6B7280;margin-top:2px;">878 min médiane · cible ≤ 4h</div>
+            <div style="margin-top:5px;position:relative;">
+              <div style="background:#FECACA;border-radius:99px;height:5px;overflow:hidden;">
+                <div style="width:100%;height:100%;background:#EF4444;border-radius:99px;"></div>
+              </div>
+              <div style="position:absolute;top:-2px;left:27%;width:2px;height:9px;background:#374151;border-radius:1px;"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-top:3px;">
+              <span style="font-size:9px;color:#DC2626;font-weight:700;">878 min actuel</span>
+              <span style="font-size:9px;color:#374151;">cible : 240 min</span>
+            </div>
+          </div>
+
+        </div>
+        <div style="padding:5px 10px;background:#F0FDF4;border-top:1px solid #BBF7D0;">
+          <span style="font-size:9px;color:#166534;font-weight:600;">✓ Vue unifiée · couleurs RAG · tendances · objectifs affichés · données API réelles</span>
         </div>
       </div>
 
     </div>
 
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+    <!-- LIGNE 2 : motifs + barres mensuelles -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;flex:1;min-height:0;">
 
-      <!-- Top motifs classés -->
-      <div class="card">
-        <div class="section-label" style="margin-bottom:11px;">Top motifs de contact · classement par volume 2026</div>
-        <div style="display:flex;flex-direction:column;gap:9px;">
+      <!-- Top motifs : Explore crop + version améliorée -->
+      <div class="card" style="padding:12px;overflow:hidden;display:flex;flex-direction:column;gap:8px;">
+        <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:6px;align-items:center;flex-shrink:0;">
           <div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
-              <span style="font-size:11px;color:#374151;font-weight:600;">Marketplace (LM, Amazon, Fact.)</span>
-              <span style="font-size:10px;color:#14B8A6;font-weight:700;">1 047</span>
+            <div style="font-size:8px;font-weight:700;color:#64748B;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">📸 Explore : graphiques par motif</div>
+            <div style="border-radius:6px;overflow:hidden;border:1px solid #E5E7EB;height:58px;">
+              <img src="explore-motifs.png" alt="Explore motifs" style="width:100%;height:100%;object-fit:cover;object-position:0 38%;display:block;">
             </div>
-            <div style="background:#F3F4F6;border-radius:99px;height:8px;overflow:hidden;"><div style="width:100%;height:100%;background:#14B8A6;border-radius:99px;"></div></div>
           </div>
+          <div style="color:#8B5CF6;font-size:14px;font-weight:900;">→</div>
           <div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
-              <span style="font-size:11px;color:#374151;font-weight:600;">Conseil produit / Technique</span>
-              <span style="font-size:10px;color:#8B5CF6;font-weight:700;">938</span>
+            <div style="font-size:8px;font-weight:700;color:#8B5CF6;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">✨ Classement unifié par volume</div>
+            <div style="display:flex;flex-direction:column;gap:3px;">
+              <div><div style="display:flex;justify-content:space-between;font-size:9px;margin-bottom:1px;"><span style="color:#374151;font-weight:600;">Marketplace</span><span style="color:#14B8A6;font-weight:700;">1 047</span></div><div style="background:#F3F4F6;border-radius:99px;height:5px;overflow:hidden;"><div style="width:100%;height:100%;background:#14B8A6;border-radius:99px;"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:9px;margin-bottom:1px;"><span style="color:#374151;font-weight:600;">Conseil produit</span><span style="color:#8B5CF6;font-weight:700;">938</span></div><div style="background:#F3F4F6;border-radius:99px;height:5px;overflow:hidden;"><div style="width:89.6%;height:100%;background:#8B5CF6;border-radius:99px;"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:9px;margin-bottom:1px;"><span style="color:#374151;font-weight:600;">Logistique</span><span style="color:#F97316;font-weight:700;">328</span></div><div style="background:#F3F4F6;border-radius:99px;height:5px;overflow:hidden;"><div style="width:31.3%;height:100%;background:#F97316;border-radius:99px;"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:9px;margin-bottom:1px;"><span style="color:#374151;font-weight:600;">Remboursements</span><span style="color:#EF4444;font-weight:700;">133</span></div><div style="background:#F3F4F6;border-radius:99px;height:5px;overflow:hidden;"><div style="width:12.7%;height:100%;background:#EF4444;border-radius:99px;"></div></div></div>
             </div>
-            <div style="background:#F3F4F6;border-radius:99px;height:8px;overflow:hidden;"><div style="width:89.6%;height:100%;background:#8B5CF6;border-radius:99px;"></div></div>
-          </div>
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
-              <span style="font-size:11px;color:#374151;font-weight:600;">Logistique / Retours</span>
-              <span style="font-size:10px;color:#F97316;font-weight:700;">328</span>
-            </div>
-            <div style="background:#F3F4F6;border-radius:99px;height:8px;overflow:hidden;"><div style="width:31.3%;height:100%;background:#F97316;border-radius:99px;"></div></div>
-          </div>
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
-              <span style="font-size:11px;color:#374151;font-weight:600;">Remboursements</span>
-              <span style="font-size:10px;color:#EF4444;font-weight:700;">133</span>
-            </div>
-            <div style="background:#F3F4F6;border-radius:99px;height:8px;overflow:hidden;"><div style="width:12.7%;height:100%;background:#EF4444;border-radius:99px;"></div></div>
-          </div>
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
-              <span style="font-size:11px;color:#374151;font-weight:600;">Prospection</span>
-              <span style="font-size:10px;color:#EAB308;font-weight:700;">116</span>
-            </div>
-            <div style="background:#F3F4F6;border-radius:99px;height:8px;overflow:hidden;"><div style="width:11.1%;height:100%;background:#EAB308;border-radius:99px;"></div></div>
           </div>
         </div>
-        <div style="margin-top:10px;padding-top:8px;border-top:1px solid #F3F4F6;font-size:10px;color:#9CA3AF;font-style:italic;">Données réelles via API Zendesk · requêtes par tag · Jan–Août 2026</div>
+        <div style="font-size:9px;color:#9CA3AF;font-style:italic;border-top:1px solid #F3F4F6;padding-top:6px;">Explore : 10+ graphiques séparés sans classement · ici : top 4 unifié Jan–Août 2026</div>
       </div>
 
-      <!-- Évolution mensuelle 2026 -->
-      <div class="card">
-        <div class="section-label" style="margin-bottom:8px;">Volume mensuel 2026 · Particuliers / Pro / Marketplace / Autres</div>
-        <div style="display:flex;gap:12px;margin-bottom:10px;flex-wrap:wrap;">
-          <div style="display:flex;align-items:center;gap:4px;font-size:10px;color:#374151;"><div style="width:10px;height:10px;border-radius:2px;background:#8B5CF6;flex-shrink:0;"></div>Particuliers</div>
-          <div style="display:flex;align-items:center;gap:4px;font-size:10px;color:#374151;"><div style="width:10px;height:10px;border-radius:2px;background:#3B82F6;flex-shrink:0;"></div>Pro</div>
-          <div style="display:flex;align-items:center;gap:4px;font-size:10px;color:#374151;"><div style="width:10px;height:10px;border-radius:2px;background:#14B8A6;flex-shrink:0;"></div>Marketplace</div>
-          <div style="display:flex;align-items:center;gap:4px;font-size:10px;color:#374151;"><div style="width:10px;height:10px;border-radius:2px;background:#D1D5DB;flex-shrink:0;"></div>Autres</div>
-        </div>
-        <div style="display:flex;align-items:flex-end;gap:5px;height:100px;">
-          <!-- Jan: 225 → 37px | B2C=73 B2B=23 Mkt=36 Autres=93 -->
-          <div style="flex:1;display:flex;flex-direction:column-reverse;height:37px;border-radius:3px 3px 0 0;overflow:hidden;">
-            <div style="flex:73;background:#8B5CF6;"></div><div style="flex:23;background:#3B82F6;"></div><div style="flex:36;background:#14B8A6;"></div><div style="flex:93;background:#D1D5DB;"></div>
+      <!-- Volume mensuel : Explore crop + barres améliorées -->
+      <div class="card" style="padding:12px;overflow:hidden;display:flex;flex-direction:column;gap:8px;">
+        <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:6px;align-items:center;flex-shrink:0;">
+          <div>
+            <div style="font-size:8px;font-weight:700;color:#64748B;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">📸 Explore : volume mensuel (monochrome)</div>
+            <div style="border-radius:6px;overflow:hidden;border:1px solid #E5E7EB;height:58px;">
+              <img src="explore-motifs.png" alt="Explore volumes mensuels" style="width:100%;height:100%;object-fit:cover;object-position:0 4%;display:block;">
+            </div>
           </div>
-          <!-- Fév: 192 → 32px | B2C=105 B2B=25 Mkt=24 Autres=38 -->
-          <div style="flex:1;display:flex;flex-direction:column-reverse;height:32px;border-radius:3px 3px 0 0;overflow:hidden;">
-            <div style="flex:105;background:#8B5CF6;"></div><div style="flex:25;background:#3B82F6;"></div><div style="flex:24;background:#14B8A6;"></div><div style="flex:38;background:#D1D5DB;"></div>
-          </div>
-          <!-- Mar: 439 → 72px | B2C=236 B2B=36 Mkt=132 Autres=35 -->
-          <div style="flex:1;display:flex;flex-direction:column-reverse;height:72px;border-radius:3px 3px 0 0;overflow:hidden;">
-            <div style="flex:236;background:#8B5CF6;"></div><div style="flex:36;background:#3B82F6;"></div><div style="flex:132;background:#14B8A6;"></div><div style="flex:35;background:#D1D5DB;"></div>
-          </div>
-          <!-- Avr: 606 → 100px | B2C=310 B2B=51 Mkt=197 Autres=48 -->
-          <div style="flex:1;display:flex;flex-direction:column-reverse;height:100px;border-radius:3px 3px 0 0;overflow:hidden;">
-            <div style="flex:310;background:#8B5CF6;"></div><div style="flex:51;background:#3B82F6;"></div><div style="flex:197;background:#14B8A6;"></div><div style="flex:48;background:#D1D5DB;"></div>
-          </div>
-          <!-- Mai: 603 → 100px | B2C=189 B2B=23 Mkt=174 Autres=217 -->
-          <div style="flex:1;display:flex;flex-direction:column-reverse;height:100px;border-radius:3px 3px 0 0;overflow:hidden;">
-            <div style="flex:189;background:#8B5CF6;"></div><div style="flex:23;background:#3B82F6;"></div><div style="flex:174;background:#14B8A6;"></div><div style="flex:217;background:#D1D5DB;"></div>
-          </div>
-          <!-- Jun: 514 → 85px | B2C=142 B2B=23 Mkt=95 Autres=254 -->
-          <div style="flex:1;display:flex;flex-direction:column-reverse;height:85px;border-radius:3px 3px 0 0;overflow:hidden;">
-            <div style="flex:142;background:#8B5CF6;"></div><div style="flex:23;background:#3B82F6;"></div><div style="flex:95;background:#14B8A6;"></div><div style="flex:254;background:#D1D5DB;"></div>
-          </div>
-          <!-- Jul: 567 → 94px | B2C=117 B2B=18 Mkt=117 Autres=315 -->
-          <div style="flex:1;display:flex;flex-direction:column-reverse;height:94px;border-radius:3px 3px 0 0;overflow:hidden;">
-            <div style="flex:117;background:#8B5CF6;"></div><div style="flex:18;background:#3B82F6;"></div><div style="flex:117;background:#14B8A6;"></div><div style="flex:315;background:#D1D5DB;"></div>
-          </div>
-          <!-- Août: 545 → 90px | B2C=156 B2B=25 Mkt=87 Autres=277 -->
-          <div style="flex:1;display:flex;flex-direction:column-reverse;height:90px;border-radius:3px 3px 0 0;overflow:hidden;opacity:0.8;">
-            <div style="flex:156;background:#8B5CF6;"></div><div style="flex:25;background:#3B82F6;"></div><div style="flex:87;background:#14B8A6;"></div><div style="flex:277;background:#D1D5DB;"></div>
+          <div style="color:#8B5CF6;font-size:14px;font-weight:900;">→</div>
+          <div>
+            <div style="font-size:8px;font-weight:700;color:#8B5CF6;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">✨ Segmenté B2C / Pro / Mkt / Autres</div>
+            <div style="display:flex;align-items:flex-end;gap:3px;height:50px;">
+              <div style="flex:1;display:flex;flex-direction:column-reverse;height:19px;border-radius:2px 2px 0 0;overflow:hidden;"><div style="flex:73;background:#8B5CF6;"></div><div style="flex:23;background:#3B82F6;"></div><div style="flex:36;background:#14B8A6;"></div><div style="flex:93;background:#D1D5DB;"></div></div>
+              <div style="flex:1;display:flex;flex-direction:column-reverse;height:16px;border-radius:2px 2px 0 0;overflow:hidden;"><div style="flex:105;background:#8B5CF6;"></div><div style="flex:25;background:#3B82F6;"></div><div style="flex:24;background:#14B8A6;"></div><div style="flex:38;background:#D1D5DB;"></div></div>
+              <div style="flex:1;display:flex;flex-direction:column-reverse;height:36px;border-radius:2px 2px 0 0;overflow:hidden;"><div style="flex:236;background:#8B5CF6;"></div><div style="flex:36;background:#3B82F6;"></div><div style="flex:132;background:#14B8A6;"></div><div style="flex:35;background:#D1D5DB;"></div></div>
+              <div style="flex:1;display:flex;flex-direction:column-reverse;height:50px;border-radius:2px 2px 0 0;overflow:hidden;"><div style="flex:310;background:#8B5CF6;"></div><div style="flex:51;background:#3B82F6;"></div><div style="flex:197;background:#14B8A6;"></div><div style="flex:48;background:#D1D5DB;"></div></div>
+              <div style="flex:1;display:flex;flex-direction:column-reverse;height:50px;border-radius:2px 2px 0 0;overflow:hidden;"><div style="flex:189;background:#8B5CF6;"></div><div style="flex:23;background:#3B82F6;"></div><div style="flex:174;background:#14B8A6;"></div><div style="flex:217;background:#D1D5DB;"></div></div>
+              <div style="flex:1;display:flex;flex-direction:column-reverse;height:43px;border-radius:2px 2px 0 0;overflow:hidden;"><div style="flex:142;background:#8B5CF6;"></div><div style="flex:23;background:#3B82F6;"></div><div style="flex:95;background:#14B8A6;"></div><div style="flex:254;background:#D1D5DB;"></div></div>
+              <div style="flex:1;display:flex;flex-direction:column-reverse;height:47px;border-radius:2px 2px 0 0;overflow:hidden;"><div style="flex:117;background:#8B5CF6;"></div><div style="flex:18;background:#3B82F6;"></div><div style="flex:117;background:#14B8A6;"></div><div style="flex:315;background:#D1D5DB;"></div></div>
+              <div style="flex:1;display:flex;flex-direction:column-reverse;height:45px;border-radius:2px 2px 0 0;overflow:hidden;opacity:.8;"><div style="flex:156;background:#8B5CF6;"></div><div style="flex:25;background:#3B82F6;"></div><div style="flex:87;background:#14B8A6;"></div><div style="flex:277;background:#D1D5DB;"></div></div>
+            </div>
+            <div style="display:flex;gap:3px;margin-top:2px;">
+              <div style="flex:1;text-align:center;font-size:7px;color:#9CA3AF;">Jan</div><div style="flex:1;text-align:center;font-size:7px;color:#9CA3AF;">Fév</div><div style="flex:1;text-align:center;font-size:7px;color:#9CA3AF;">Mar</div><div style="flex:1;text-align:center;font-size:7px;color:#8B5CF6;font-weight:700;">Avr▲</div><div style="flex:1;text-align:center;font-size:7px;color:#8B5CF6;font-weight:700;">Mai▲</div><div style="flex:1;text-align:center;font-size:7px;color:#9CA3AF;">Jun</div><div style="flex:1;text-align:center;font-size:7px;color:#9CA3AF;">Jul</div><div style="flex:1;text-align:center;font-size:7px;color:#9CA3AF;">Août</div>
+            </div>
           </div>
         </div>
-        <div style="display:flex;gap:5px;margin-top:4px;">
-          <div style="flex:1;text-align:center;font-size:8px;color:#9CA3AF;">Jan<br>225</div>
-          <div style="flex:1;text-align:center;font-size:8px;color:#9CA3AF;">Fév<br>192</div>
-          <div style="flex:1;text-align:center;font-size:8px;color:#9CA3AF;">Mar<br>439</div>
-          <div style="flex:1;text-align:center;font-size:8px;color:#8B5CF6;font-weight:700;">Avr▲<br>606</div>
-          <div style="flex:1;text-align:center;font-size:8px;color:#8B5CF6;font-weight:700;">Mai▲<br>603</div>
-          <div style="flex:1;text-align:center;font-size:8px;color:#9CA3AF;">Jun<br>514</div>
-          <div style="flex:1;text-align:center;font-size:8px;color:#9CA3AF;">Jul<br>567</div>
-          <div style="flex:1;text-align:center;font-size:8px;color:#9CA3AF;">Août*<br>545</div>
-        </div>
-        <div style="margin-top:7px;font-size:10px;color:#9CA3AF;font-style:italic;">* Mois partiellement comptabilisé · données réelles API Zendesk · pic saisonnier Avr–Mai</div>
+        <div style="font-size:9px;color:#9CA3AF;font-style:italic;border-top:1px solid #F3F4F6;padding-top:6px;">Explore : courbes monochromes séparées par profil · ici : barres empilées B2C/Pro/Mkt/Autres unifiées</div>
       </div>
 
     </div>
+
   </div>
 </div>
-
 
 <!-- ══════════════════ SLIDE 13 — SYNTHÈSE ══════════════════ -->
 <div class="slide" id="slide-synthese">
