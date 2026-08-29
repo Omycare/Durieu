@@ -185,6 +185,15 @@
   .col3-item::before { content: '-'; color: #475569; flex-shrink: 0; }
   .col3-item a { color: #818CF8; font-size: 10px; word-break: break-all; }
 
+  /* ── CHECKBOXES INTERACTIFS ─────────────────────────── */
+  .check-row { display:flex; align-items:flex-start; gap:9px; padding:6px 14px; border-bottom:1px solid #F3F4F6; font-size:11.5px; color:#374151; cursor:pointer; user-select:none; transition:background .15s; }
+  .check-row:hover { background:#F9FAFB; }
+  .check-row:last-child { border-bottom:none; }
+  .task-cb { appearance:none; -webkit-appearance:none; width:14px; height:14px; border:2px solid #D1D5DB; border-radius:3px; flex-shrink:0; margin-top:2px; cursor:pointer; transition:all .2s; background:#fff; }
+  .task-cb:checked { background:#22C55E; border-color:#22C55E; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 6L5 9L10 3' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-size:10px; background-repeat:no-repeat; background-position:center; }
+  .check-row:has(.task-cb:checked) .cb-text { text-decoration:line-through; color:#9CA3AF; }
+  .check-row:has(.task-cb:checked) .cb-text strong { color:#9CA3AF; font-weight:500; }
+
   /* ── ZD LINKS ───────────────────────────────────────── */
   .zd-link-sm { color: #818CF8; font-size: 10px; text-decoration: none; margin-left: 4px; opacity: .8; }
   .zd-link-sm:hover { opacity: 1; text-decoration: underline; }
@@ -781,71 +790,78 @@
     <h2>📅 Feuille de route priorisée</h2>
     <span class="sh-badge">S1 · S2 · M1 · T1</span>
   </div>
-  <div class="slide-body">
-    <div class="timeline">
-      <div class="timeline-item">
-        <div class="timeline-dot" style="background:#FEE2E2;border:2px solid #EF4444;color:#991B1B;">S1</div>
-        <div class="timeline-content">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">
-            <strong style="font-size:13px;color:#1E1B4B;">Semaine 1 — Corrections critiques</strong>
-            <span class="badge badge-red">Urgent · ~2h</span>
+  <div class="slide-body" style="padding:16px 20px 72px;overflow:hidden;display:flex;flex-direction:column;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;flex:1;min-height:0;">
+
+      <!-- S1 -->
+      <div style="border-radius:12px;overflow:hidden;border:1px solid #FECACA;display:flex;flex-direction:column;">
+        <div style="background:#E53E3E;padding:14px 18px;display:flex;align-items:center;gap:12px;">
+          <div style="width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff;flex-shrink:0;">S1</div>
+          <div>
+            <div style="font-weight:800;font-size:14px;color:#fff;">Semaine 1 : Corrections critiques</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.75);margin-top:1px;">~2h · impact immédiat</div>
           </div>
-          <ul style="padding-left:14px;display:flex;flex-direction:column;gap:3px;font-size:12px;color:#374151;">
-            <li>Corriger l'horaire "Owatrol FRANCE" → Lun-Ven 08:30–18:00</li>
-            <li>Créer 3 politiques SLA (Urgent / Normal / Faible)</li>
-            <li>Corriger le trigger d'accusé de réception (supprimer condition email unique)</li>
-          </ul>
+        </div>
+        <div style="background:#fff;flex:1;overflow-y:auto;">
+          <label class="check-row"><input type="checkbox" class="task-cb"><span class="cb-text">Corriger l'horaire <strong>"Owatrol FRANCE"</strong> → Lun-Ven 08:30–18:00</span></label>
+          <label class="check-row"><input type="checkbox" class="task-cb"><span class="cb-text">Créer <strong>3 politiques SLA</strong> (Urgent / Normal / Faible)</span></label>
+          <label class="check-row"><input type="checkbox" class="task-cb"><span class="cb-text">Corriger le <strong>trigger accusé de réception</strong> (supprimer condition email unique)</span></label>
+          <label class="check-row"><input type="checkbox" class="task-cb"><span class="cb-text">Vérifier la <strong>connexion Facebook</strong> dans Social Messaging</span></label>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="timeline-dot" style="background:#FFEDD5;border:2px solid #F97316;color:#9A3412;">S2</div>
-        <div class="timeline-content">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">
-            <strong style="font-size:13px;color:#1E1B4B;">Semaine 2 — Processus & Qualité</strong>
-            <span class="badge badge-orange">Important · ~3h</span>
+      <!-- S2 -->
+      <div style="border-radius:12px;overflow:hidden;border:1px solid #FDE68A;display:flex;flex-direction:column;">
+        <div style="background:#D97706;padding:14px 18px;display:flex;align-items:center;gap:12px;">
+          <div style="width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff;flex-shrink:0;">S2</div>
+          <div>
+            <div style="font-weight:800;font-size:14px;color:#fff;">Semaine 2 : Processus & Qualité</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.75);margin-top:1px;">~3h · corrections structurelles</div>
           </div>
-          <ul style="padding-left:14px;display:flex;flex-direction:column;gap:3px;font-size:12px;color:#374151;">
-            <li>Réactiver + adapter les automations de relance (en attente 72h, 7 jours)</li>
-            <li>Réviser et publier les 10 articles Help Center en brouillon</li>
-            <li>Évaluer et activer l'AI Agent Zendesk pour la déflection</li>
-            <li>Identifier les 5 comptes fonctionnels and understand the use of it</li>
-          </ul>
+        </div>
+        <div style="background:#fff;flex:1;overflow-y:auto;">
+          <label class="check-row"><input type="checkbox" class="task-cb"><span class="cb-text">Réactiver les <strong>automations relance</strong> tickets en attente (72h, 7 jours)</span></label>
+          <label class="check-row"><input type="checkbox" class="task-cb"><span class="cb-text">Réviser et <strong>publier les 10 articles</strong> Help Center en brouillon</span></label>
+          <label class="check-row"><input type="checkbox" class="task-cb"><span class="cb-text">Auditer les <strong>5 comptes fonctionnels</strong> (licences consommées)</span></label>
+          <label class="check-row"><input type="checkbox" class="task-cb"><span class="cb-text">Revoir les automations <strong>"En pause → Ouvert"</strong> et <strong>"En attente → Ouvert"</strong></span></label>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="timeline-dot" style="background:#FEF3C7;border:2px solid #EAB308;color:#92400E;">M1</div>
-        <div class="timeline-content">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">
-            <strong style="font-size:13px;color:#1E1B4B;">Mois 1 — Organisation & Structure</strong>
-            <span class="badge badge-yellow">Amélioration · ~1 jour</span>
+      <!-- M1 -->
+      <div style="border-radius:12px;overflow:hidden;border:1px solid #FED7AA;display:flex;flex-direction:column;">
+        <div style="background:#B45309;padding:14px 18px;display:flex;align-items:center;gap:12px;">
+          <div style="width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff;flex-shrink:0;">M1</div>
+          <div>
+            <div style="font-weight:800;font-size:14px;color:#fff;">Mois 1 : Organisation & Structure</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.75);margin-top:1px;">~1 jour · structure et routage</div>
           </div>
-          <ul style="padding-left:14px;display:flex;flex-direction:column;gap:3px;font-size:12px;color:#374151;">
-            <li>Créer des groupes Zendesk par domaine (Conseil, Transport, SAV, Logistique)</li>
-            <li>Configurer le routage par groupe selon le type de demande</li>
-            <li>Activer les vues Social Messaging si canaux sociaux utilisés</li>
-            <li>Ajouter des labels aux articles Help Center</li>
-            <li>Renommer "Fermeture annuelle de le société" → "de la société"</li>
-          </ul>
+        </div>
+        <div style="background:#fff;flex:1;overflow-y:auto;">
+          <label class="check-row"><input type="checkbox" class="task-cb"><span class="cb-text">Créer des <strong>groupes par domaine</strong> (Conseil, Transport, SAV, Logistique)</span></label>
+          <label class="check-row"><input type="checkbox" class="task-cb"><span class="cb-text">Configurer le <strong>routage automatique</strong> par type de demande</span></label>
+          <label class="check-row"><input type="checkbox" class="task-cb"><span class="cb-text">Activer les <strong>vues Social Messaging</strong> si canaux sociaux utilisés</span></label>
+          <label class="check-row"><input type="checkbox" class="task-cb"><span class="cb-text">Ajouter des <strong>labels aux articles</strong> Help Center (indispensable pour l'IA)</span></label>
+          <label class="check-row"><input type="checkbox" class="task-cb"><span class="cb-text">Corriger l'intitulé du trigger <strong>"Fermeture annuelle de le société"</strong></span></label>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="timeline-dot" style="background:#DCFCE7;border:2px solid #22C55E;color:#166534;">T1</div>
-        <div class="timeline-content">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">
-            <strong style="font-size:13px;color:#1E1B4B;">Trimestre 1 — Automatisation avancée</strong>
-            <span class="badge badge-green">Optimisation · ~2 jours</span>
+      <!-- T1 -->
+      <div style="border-radius:12px;overflow:hidden;border:1px solid #DDD6FE;display:flex;flex-direction:column;">
+        <div style="background:#7C3AED;padding:14px 18px;display:flex;align-items:center;gap:12px;">
+          <div style="width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff;flex-shrink:0;">T1</div>
+          <div>
+            <div style="font-weight:800;font-size:14px;color:#fff;">Trimestre 1 : Automatisation avancée</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.75);margin-top:1px;">~2 jours · IA et reporting</div>
           </div>
-          <ul style="padding-left:14px;display:flex;flex-direction:column;gap:3px;font-size:12px;color:#374151;">
-            <li>Configurer le skill-based routing et intégrer l'AI Agent</li>
-            <li>Mettre en place le flux de récupération CSAT (taux réponse : 13,8%)</li>
-            <li>Créer des flux automatisés marketplace (suivi commande, retour, litige)</li>
-            <li>Explorer Zendesk Explore pour tableaux de bord temps de réponse par canal</li>
-          </ul>
+        </div>
+        <div style="background:#fff;flex:1;overflow-y:auto;">
+          <label class="check-row"><input type="checkbox" class="task-cb"><span class="cb-text">Configurer et activer l'<strong>AI Agent Zendesk</strong> pour la déflection</span></label>
+          <label class="check-row"><input type="checkbox" class="task-cb"><span class="cb-text">Mettre en place le <strong>flux récupération CSAT</strong> (taux réponse : 13,8%)</span></label>
+          <label class="check-row"><input type="checkbox" class="task-cb"><span class="cb-text">Créer des <strong>flux automatisés marketplace</strong> (suivi commande, retour, litige)</span></label>
+          <label class="check-row"><input type="checkbox" class="task-cb"><span class="cb-text">Déployer <strong>Zendesk Explore</strong> pour tableaux de bord temps de réponse par canal</span></label>
         </div>
       </div>
+
     </div>
   </div>
 </div>
@@ -906,76 +922,10 @@
   </div>
 </div>
 
-<!-- ══════════════════ SLIDE 12 — RÉSUMÉ ══════════════════ -->
-<div class="slide" id="slide-12">
-  <div class="slide-header">
-    <h2>✅ Résumé exécutif — Checklist complète</h2>
-    <span class="sh-badge">RÉSUMÉ EXÉCUTIF</span>
-  </div>
-  <div class="slide-body">
-    <div class="grid grid-2" style="gap:12px;">
-      <div>
-        <div class="alert alert-red" style="margin-bottom:8px;">
-          <div class="alert-title" style="font-size:11px;text-transform:uppercase;letter-spacing:1px;">🔴 Critique — À corriger cette semaine</div>
-          <div class="alert-body">
-            <ul style="padding-left:12px;display:flex;flex-direction:column;gap:4px;font-size:12px;color:#374151;">
-              <li>☐ Corriger les horaires commerciaux (14h-15h → 08:30-18:00)</li>
-              <li>☐ Créer les politiques SLA (Urgent / Normal / Faible)</li>
-              <li>☐ Étendre le trigger d'accusé de réception à tous les canaux</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="alert alert-orange" style="margin-bottom:8px;">
-          <div class="alert-title" style="font-size:11px;text-transform:uppercase;letter-spacing:1px;">🟠 Important — Dans les 2 semaines</div>
-          <div class="alert-body">
-            <ul style="padding-left:12px;display:flex;flex-direction:column;gap:4px;font-size:12px;color:#374151;">
-              <li>☐ Réactiver notifications d'assignation agents</li>
-              <li>☐ Réactiver automations relance tickets en attente</li>
-              <li>☐ Publier les 10 articles en brouillon</li>
-              <li>☐ Auditer et migrer les 5 comptes fonctionnels</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="alert alert-yellow">
-          <div class="alert-title" style="font-size:11px;text-transform:uppercase;letter-spacing:1px;">🟡 Amélioration — Mois 1</div>
-          <div class="alert-body">
-            <ul style="padding-left:12px;display:flex;flex-direction:column;gap:4px;font-size:12px;color:#374151;">
-              <li>☐ Créer des groupes par domaine expertise</li>
-              <li>☐ Configurer le routage par type de demande</li>
-              <li>☐ Activer vues Social Messaging</li>
-              <li>☐ Supprimer les champs désactivés inutilisés</li>
-              <li>☐ Ajouter des labels aux articles Help Center</li>
-              <li>☐ Corriger l'intitulé du trigger fermeture annuelle</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <div class="alert alert-green">
-          <div class="alert-title" style="font-size:11px;text-transform:uppercase;letter-spacing:1px;">✅ Points forts à conserver</div>
-          <div class="alert-body">
-            <ul style="padding-left:12px;display:flex;flex-direction:column;gap:4px;font-size:12px;color:#374151;">
-              <li>Nomenclature macros avec "::" — à généraliser</li>
-              <li>Organisation vues par marketplace — exemplaire</li>
-              <li>Help Center avec 58 articles publiés — base solide</li>
-              <li>Intégration Magento — continuer à enrichir</li>
-              <li>CSAT actif à 84,7% — améliorer le taux de réponse</li>
-              <li>Statut "En pause" activé et utilisé correctement</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════════ SLIDE 13 — RÉSUMÉ 3 COLONNES ══════════════════ -->
+<!-- ══════════════════ SLIDE 12 — SYNTHÈSE COMPLÈTE ══════════════════ -->
 <div class="slide" id="slide-3b">
   <div class="slide-header">
-    <h2>🗂 Résumé de l'audit — Points clés par domaine</h2>
+    <h2>🗂 Synthèse complète de l'audit</h2>
     <span class="sh-badge">STRUCTURE · PROCESSUS · MANAGEMENT</span>
   </div>
   <div class="col3-layout">
